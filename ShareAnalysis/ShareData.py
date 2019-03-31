@@ -10,10 +10,7 @@ class ShareData:
         self.shareData = pd.read_csv(dataFile, sep = sep)        
 
     def GetPlainData(self, feature):
-        return self.shareData[feature]
-    
-
-
+        return self.shareData[feature]  
 
 file = 'WireCard01.csv'
 data = ShareData(rp.GetPathTo(file))
