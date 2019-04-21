@@ -1,4 +1,4 @@
-import WeightsHelper as wh
+import EvaluationHelper.WeightsHelper as wh
 
 
 def test_getAllDisjunctElements_Spread0():

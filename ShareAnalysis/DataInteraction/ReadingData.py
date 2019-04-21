@@ -1,6 +1,6 @@
 import os
 import pandas as pd # lesen von csv
-from formatter import prepareData
+from DataInteraction.formatter import prepareData
 
 def readData(filename, feature = 'Hoch'):
     cwd = os.getcwd()
