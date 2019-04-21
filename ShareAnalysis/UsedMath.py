@@ -1,6 +1,7 @@
 import scipy as sp 
 import numpy as np 
 from scipy import stats as st
+
 def mean(list):
     return sp.mean(list)
 
