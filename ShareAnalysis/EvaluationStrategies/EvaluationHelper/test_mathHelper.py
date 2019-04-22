@@ -1,4 +1,4 @@
-import EvaluationHelper.mathHelper as mh
+import EvaluationStrategies.EvaluationHelper.mathHelper as mh
 import numpy as np
 
 def test_returnInLn_Equal0():

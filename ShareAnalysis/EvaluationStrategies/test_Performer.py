@@ -23,6 +23,6 @@ def test_performStrategy_PerformBuyAction_PerformNoSellAction():
 def test_performStrategy_PerformBuyAction_PerformSellAction():
     evaluatedData = [[1,2,3,4,True],[2,3,4,5,False]]
     result, buyAction, sellAction = performStrategy(money, cost, evaluatedData, dataSrc, steps, sellStrategy=sellStrategy, buyStrategy= buyStrategy)
-    assert result == 11
+    assert result == 2
     assert len(buyAction) == 1
     assert len(sellAction) == 1

@@ -1,4 +1,4 @@
-import EvaluationHelper.mathHelper as mh 
+import EvaluationStrategies.EvaluationHelper.mathHelper as mh 
 from numpy import average
 
 def getAllDisjunctElements(data, spread = 0):
