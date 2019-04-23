@@ -9,6 +9,12 @@ def getAllDisjunctElements(data, spread = 0):
             result.append(value)
     return result
 
+def getDataWithRespectToSpread(data, spread=0):
+    result = []
+    for i in range(len(data)):
+        data[i] = round(data[i], spread)
+    return data
+
 def getProbability(element, basedata):
     countTotal = len(basedata)
     prob = []
@@ -19,7 +25,8 @@ def getProbability(element, basedata):
 
 def generateWeights(data, spread = 0):
     disjunctElements = sorted(getAllDisjunctElements(data, spread))
-    prop = getProbability(disjunctElements, data)
+    dataWithRespectToSpread = getDataWithRespectToSpread(data, spread)
+    prop = getProbability(disjunctElements, dataWithRespectToSpread)
     return disjunctElements, prop
 
 def ExpectedValue(data, spread = 0):

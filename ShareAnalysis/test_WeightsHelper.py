@@ -80,6 +80,22 @@ def test_generateWeights_NoEqualDistribution_OrderIsCorrect():
 
     assert result == expectedResult
 
+def test_getDataWithRespectToSpread():
+    listToTest = [1.21,2.14,3.16]
+    expectedResult = [1.2,2.1,3.2]
+
+    result = wh.getDataWithRespectToSpread(listToTest,1)
+
+    assert result == expectedResult
+
+def test_getDataWithRespectToSpread0():
+    listToTest = [1.1,2.4,3.6]
+    expectedResult = listToTest
+
+    result = wh.getDataWithRespectToSpread(listToTest)
+
+    assert result == expectedResult
+
 def test_ExpectedValue_EqualDistribution():
     # da assert exact prüft, aber bei Berechnungen Rundungsfehler auftreten,
     # muss hier auf eine Umgebung getestet werden.
