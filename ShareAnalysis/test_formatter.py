@@ -1,5 +1,4 @@
-import unittest
-from DataInteraction.formatter import changeDirection, makeFloatList, prepareData
+from Helpers.formatter import changeDirection, makeFloatList, prepareData
 
 def test_changeDirection_Int():
     test_list = [1,2,3,4]

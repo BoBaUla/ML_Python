@@ -1,4 +1,4 @@
-from EvaluationStrategies.EvaluationHelper.WeightsHelper import ExpectedValue
+from Helpers.WeightsHelper import ExpectedValue
 
 def preEvaluateData(data, steps = 1):
     # print('preEvaluateData')

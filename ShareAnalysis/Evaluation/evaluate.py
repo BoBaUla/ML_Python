@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
-import Helper.PlottingCollection as pc 
-import EvaluationStrategies.EvaluationHelper.mathHelper as mh
-from DataInteraction.ReadingData import readData
-from EvaluationStrategies.PreEvaluation import preEvaluateData
-from EvaluationStrategies.Performer import performStrategy
+import Helpers.PlottingCollection as pc 
+import Helpers.mathHelper as mh
+from Helpers.ReadingData import readData
+from Evaluation.PreEvaluation import preEvaluateData
+from Evaluation.Performer import performStrategy
 
 workingfiles = [
     'SAP_05_04_19_Intraday.csv',

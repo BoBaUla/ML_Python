@@ -1,4 +1,4 @@
-from EvaluationStrategies.Performer import performStrategy
+from Evaluation.Performer import performStrategy
 
 money = 10
 cost = 2
