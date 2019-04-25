@@ -2,16 +2,16 @@ import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
 
 from Helpers.Config import SimConfig
-from Evaluation.PreEvaluation import preEvaluateData
+from Evaluation.PreEvaluation import StartIntervallEvaluation as preEvaluateData
 from Evaluation.Performer import performStrategy
 import Helpers.RandomWalkNumberGenerator as rw 
 
-config = SimConfig(sellAtFactor=0.06, stopLossFactor=0.01 )
+config = SimConfig(sellAtFactor=0.06, stopLossFactor=0.06)
 config.mu = np.random.randint(-100,100)/100
 walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
 data = walker.calcWalk(config.dataPoints)
 preparedData = preEvaluateData(data, config.steps)
-[gain, buy, sell] = performStrategy(config.invest, config.fee, preparedData , data, config.steps, limitFactor= config.sellAtFactor, stopLossFactor=config.stopLossFactor)
+[gain, buy, sell] = performStrategy(config, preparedData , data)
 
 fig, axs = plt.subplots(2,1)
 

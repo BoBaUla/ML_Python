@@ -3,11 +3,11 @@ import numpy as np
 import Helpers.PlottingCollection as pc 
 import Helpers.mathHelper as mh
 from Helpers.ReadingData import readData
-from Evaluation.PreEvaluation import preEvaluateData
+from Helpers.Config import SimConfig
+from Evaluation.PreEvaluation import  StartIntervallEvaluation as preEvaluateData
 from Evaluation.Performer import performStrategy
 
 workingfiles = [
-    'SAP_05_04_19_Intraday.csv',
 'SAP_03_04_bis_05_04_Week.csv',
 'SAP_2019-03-25_bis_2019-04-05_2Week.csv',
 'SAP_2019-01-07_bis_2019-04-05_3Month.csv',
@@ -22,7 +22,7 @@ fee = 5
 for i in workingfiles:
     data =  readData(i)
     prepateredData = preEvaluateData(data, steps= steps)
-    [gain, buy, sell] = performStrategy(10000, fee, prepateredData, data, steps, limitU, limitD)
+    [gain, buy, sell] = performStrategy( SimConfig(), prepateredData, data, limitU, limitD)
     if len(buy) >0 and len(sell)>0:
         buyX = np.array(buy)[:,0]
         buyY = np.array(buy)[:,1]
