@@ -10,7 +10,6 @@ def getAllDisjunctElements(data, spread = 0):
     return result
 
 def getDataWithRespectToSpread(data, spread=0):
-    result = []
     for i in range(len(data)):
         data[i] = round(data[i], spread)
     return data
