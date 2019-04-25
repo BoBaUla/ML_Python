@@ -1,4 +1,4 @@
-from Evaluation.EvaluateStrategy import *
+from Evaluation.EvaluateStrategy import EvaluateStrategy, initStrategies, StrategyMapper, filterBadStrategies, filterGoodStrategies
 from Helpers.RandomWalkNumberGenerator import RandomWalker as rw
 from Helpers.Config import SimConfig
 import pytest
@@ -76,29 +76,34 @@ def test_filterBadStrategies_NoneEmptyStrategies():
 
     assert expectedResult == result
 
+simulations = 1
+start = 10
 def test_EvaluateStrategy_ReturnsNothingAtEmptyStrategy():
     strategies = []
-    walker = rw(10)
-    simulations = 1
-
-    result = EvaluateStrategy(strategies, walker, simulations, SimConfig())
+    
+    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start)
 
     assert len(strategies) == len(result)
 
 def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategy():
     strategies = [11]
-    walker = rw(10)
-    simulations = 1
 
-    result = EvaluateStrategy(strategies, walker, simulations, SimConfig())
+    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start)
 
     assert len(strategies) == len(result)
 
 def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategyMoreResults():
     strategies = [11,122,21]
-    walker = rw(10)
-    simulations = 1
 
-    result = EvaluateStrategy(strategies, walker, simulations, SimConfig())
+    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start)
 
     assert len(strategies) == len(result)
+
+def test_initStrategies():
+    maxRange = 3
+    expectedResult =[[1,1],[1,2],[2,1],[2,2]]
+    
+    result = initStrategies(maxRange)
+
+    assert expectedResult == result
+    
