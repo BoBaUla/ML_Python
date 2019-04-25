@@ -6,7 +6,7 @@ def preEvaluateData(data, steps = 1):
         return []
     evaluatedData = []
     lastIndex = len(data)- steps + 1
-    for i in range(lastIndex):
+    for i in range(lastIndex-1):
         subset = data[i: i+steps]    
 
         buy = ExpectedValue(subset) < subset[steps - 1]

@@ -19,16 +19,16 @@ def test_preEvaluation_SubsetIsSmallerAsSteps_PerfomNoEvaluation():
 def test_preEvaluation_SubsetIsRealSubset_ResultHasCorrectLength():
     listToTest = [0,2,2,3,5,4,2,1]
     steps = 4
-    expectedResult = len(listToTest) -  steps + 1
+    expectedResult = len(listToTest) -  steps
     
     result = preEvaluateData(listToTest, steps)
 
     assert len(result) == expectedResult
 
 def test_preEvaluation_SubsetIsRealSubset_ResultIsCorrect():
-    listToTest = [1,2,3,4,5,1]
+    listToTest = [1,2,3,4,2,1]
     steps = 4
-    expectedResult = [[1,2,3,4,True],[2,3,4,5,True], [3,4,5,1,False]]
+    expectedResult = [[1,2,3,4,True],[2,3,4,2,False]]
 
     result = preEvaluateData(listToTest, steps)
 
