@@ -1,4 +1,4 @@
-from Evaluation.PreEvaluation import preEvaluateData
+from Evaluation.PreEvaluation import preEvaluateDataByRisingExpectedValue as preEvaluateData
 
 def test_preEvaluation_Returs0AtNoSteps():
     listToTest = [0]
