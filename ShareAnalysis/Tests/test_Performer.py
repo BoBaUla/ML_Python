@@ -1,4 +1,4 @@
-from Evaluation.Performer import performStrategy
+import ShareAnalysis.Evaluation.Performer as performer
 
 money = 10
 cost = 2
@@ -15,14 +15,14 @@ def buyStrategy(buy, canBuy, money, cost, price):
 
 def test_performStrategy_PerformBuyAction_PerformNoSellAction():
     evaluatedData = [[1,2,3,4,True]]
-    result, buyAction, sellAction = performStrategy(money, cost, evaluatedData, dataSrc, steps, sellStrategy=sellStrategy, buyStrategy= buyStrategy)
+    result, buyAction, sellAction = performer.performStrategy(money, cost, evaluatedData, dataSrc, steps, sellStrategy=sellStrategy, buyStrategy= buyStrategy)
     assert result == money - cost
     assert len(buyAction) == 1
     assert len(sellAction) == 0
     
 def test_performStrategy_PerformBuyAction_PerformSellAction():
     evaluatedData = [[1,2,3,4,True],[2,3,4,5,False]]
-    result, buyAction, sellAction = performStrategy(money, cost, evaluatedData, dataSrc, steps, sellStrategy=sellStrategy, buyStrategy= buyStrategy)
+    result, buyAction, sellAction = performer.performStrategy(money, cost, evaluatedData, dataSrc, steps, sellStrategy=sellStrategy, buyStrategy= buyStrategy)
     assert result == 2
     assert len(buyAction) == 1
     assert len(sellAction) == 1
