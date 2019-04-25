@@ -1,4 +1,4 @@
-import ShareAnalysis.Evaluation.Performer as performer
+import Evaluation.Performer as performer
 
 money = 10
 cost = 2
