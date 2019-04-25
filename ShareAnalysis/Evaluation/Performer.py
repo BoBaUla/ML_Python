@@ -1,4 +1,5 @@
 import numpy as np 
+from Helpers.Config import SimConfig
 
 def sellStrategy(price, sellAt, stopLoss):
     return (price > sellAt or price <= stopLoss)
@@ -6,16 +7,22 @@ def sellStrategy(price, sellAt, stopLoss):
 def buyStrategy(buy, canBuy, money, cost, price):
     return buy and money - cost > price and canBuy
 
-def performStrategy(capital, cost, evaluatedData, dataSrc, steps, 
-    limitFactor = 0, stopLossFactor = 0, endFactor = 0,
-    sellStrategy = sellStrategy, buyStrategy = buyStrategy):    
+def performStrategy(config, evaluatedData, dataSrc, sellStrategy = sellStrategy, buyStrategy = buyStrategy):    
     # print('evaluateData')
+    if  not (isinstance(config, SimConfig)):
+        return 0, [], []
+
     price = 0
-    money = capital
-    maxGain = capital * (1+endFactor)
+    money = config.invest
+    maxGain = config.invest * (1+config.maxGainFactor)
+    steps = config.steps
+    cost = config.fee
+    limitFactor = config.sellAtFactor
+    stopLossFactor = config.stopLossFactor
+
     evaluatedData = evaluatedData
     dataSrc = dataSrc
-    steps = steps
+
     share = 0
     sellAt = 0
     stopLoss = 0
