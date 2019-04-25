@@ -13,7 +13,8 @@ class SimConfig(object):
         sigma = 0.4, 
         sellAtFactor = 0.08, 
         stopLossFactor = 0.08,
-        maxGainFactor = 0.2):
+        maxGainFactor = 0.2,
+        maxRange = 10):
 
         self.dataPoints = dataPoints
         self.invest = invest
@@ -25,3 +26,4 @@ class SimConfig(object):
         self.sellAtFactor = sellAtFactor
         self.stopLossFactor = stopLossFactor
         self.maxGainFactor = maxGainFactor
+        self.maxRange = maxRange
