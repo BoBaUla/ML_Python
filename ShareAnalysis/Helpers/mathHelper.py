@@ -24,3 +24,10 @@ def getBinomialPropability(data, limit = 0):
         return m / n
     return 0
     
+def getRelationLargerThan(value, dataset):
+    length = len(dataset)
+    count = 0
+    for dat in dataset:
+        if dat < value:
+            count = count + 1
+    return count / length

@@ -36,3 +36,27 @@ def test_getBinomialPropability_WithRespectToLimit2():
     expectedResult = 0.25
     result = mh.getBinomialPropability(listToTest,2)
     assert expectedResult == result
+
+def test_getRelationLargerThan_ResultIs0():
+    listToTest = [1,2,3,4,5]
+    expectedResult = 0
+    
+    result = mh.getRelationLargerThan(0, listToTest)
+
+    assert expectedResult == result
+
+def test_getRelationLargerThan_ResultIs1():
+    listToTest = [1,2,3,4,5]
+    expectedResult = 1
+    
+    result = mh.getRelationLargerThan(6, listToTest)
+
+    assert expectedResult == result
+
+def test_getRelationLargerThan_ResultIsBetween0And1():
+    listToTest = [1,2,3,4,5]
+    expectedResult = 2/5
+    
+    result = mh.getRelationLargerThan(3, listToTest)
+
+    assert expectedResult == result
