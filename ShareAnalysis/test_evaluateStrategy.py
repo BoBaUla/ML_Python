@@ -1,8 +1,9 @@
-from Evaluation.EvaluateStrategy import EvaluateStrategy, initStrategies, StrategyMapper, filterBadStrategies, filterGoodStrategies
+from Evaluation.EvaluateStrategy import *
 from Helpers.RandomWalkNumberGenerator import RandomWalker as rw
 from Helpers.Config import SimConfig
 import pytest
 
+# pytest test_evaluateStrategy.py
 
 def test_StrategyMapper_mapNumberToStrategy():
     num = 11
@@ -22,31 +23,39 @@ def test_StrategyMapper_mapStrategyToNumber():
     
     assert expectedResult == result
 
+stratResult = StratResult([],10,[1,1])
+
+def setupStratResults():
+    stratResults = []
+    stratResults.append(stratResult)
+    return stratResults
+
 def test_filterGoodStrategies_EmptyStrategies():
     stratResults = []
     minResult = 5
     config = SimConfig(invest = minResult)
     expectedResult = [[],[]]
-    result = filterGoodStrategies(stratResults, config, config.invest)
+    result = filterGoodStrategies(stratResults, config.invest)
 
-    assert expectedResult == result
+    assert len(expectedResult) == len(result)
 
 def test_filterGoodStrategies_NoGoodStrategies():
-    stratResults = [[10,[1,1]],[10,[2,1]],[1,[1,2]]]
+    stratResults = setupStratResults()
     minResult = 11
     config = SimConfig(invest = minResult)
     expectedResult = [[],[]]
-    result = filterGoodStrategies(stratResults, config, config.invest)
+    result = filterGoodStrategies(stratResults, config.invest)
 
-    assert expectedResult == result
+    assert len(expectedResult) == len(result)
 
 def test_filterGoodStrategies_NoneEmptyStrategies():
-    stratResults = [[10,[1,1]],[10,[2,1]],[1,[1,2]]]
+    stratResults = setupStratResults()
     minResult = 5
     config = SimConfig(invest = minResult)
-    expectedResult = [[11,21],[10,10]]
-    result = filterGoodStrategies(stratResults, config, config.invest)
+    expectedResult = [[stratResult.strategy], [stratResult.meanGain]]
+    result = filterGoodStrategies(stratResults, config.invest)
 
+    assert len(expectedResult) == len(result)
     assert expectedResult == result
 
 def test_filterBadStrategies_EmptyStrategies():
@@ -54,54 +63,67 @@ def test_filterBadStrategies_EmptyStrategies():
     minResult = 5
     config = SimConfig(invest = minResult)
     expectedResult = [[],[]]
-    result = filterBadStrategies(stratResults, config, config.invest)
+    result = filterBadStrategies(stratResults, config.invest)
 
-    assert expectedResult == result
+    assert len(expectedResult) == len(result)
 
 def test_filterBadStrategies_NoBadStrategies():
-    stratResults = [[10,[1,1]],[10,[2,1]],[2,[1,2]]]
+    stratResults = setupStratResults()
     minResult = 1
     config = SimConfig(invest = minResult)
     expectedResult = [[],[]]
-    result = filterBadStrategies(stratResults, config, config.invest)
+    result = filterBadStrategies(stratResults, config.invest)
 
-    assert expectedResult == result
+    assert len(expectedResult) == len(result)
 
 def test_filterBadStrategies_NoneEmptyStrategies():
-    stratResults = [[10,[1,1]],[10,[2,1]],[1,[1,2]]]
-    minResult = 5
+    stratResults = setupStratResults()
+    minResult = 50
     config = SimConfig(invest = minResult)
-    expectedResult = [[12],[1]]
-    result = filterBadStrategies(stratResults, config, config.invest)
+    expectedResult = [[stratResult.strategy], [stratResult.meanGain]]
+    result = filterBadStrategies(stratResults, config.invest)
 
     assert expectedResult == result
 
 simulations = 1
 start = 10
+
+def preEvaluateDataMock(data, steps, evaluationStrategy):
+    return data
+
+def evaluateDataMock(config, prepareData, data):
+    return [0,1]
+
 def test_EvaluateStrategy_ReturnsNothingAtEmptyStrategy():
     strategies = []
     
-    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start)
-
+    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start, 
+    preEvaluation = preEvaluateDataMock,
+    evaluateData= evaluateDataMock)
     assert len(strategies) == len(result)
 
 def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategy():
     strategies = [11]
 
-    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start)
-
+    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start, 
+    preEvaluation = preEvaluateDataMock,
+    evaluateData= evaluateDataMock)
+    
     assert len(strategies) == len(result)
+
 
 def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategyMoreResults():
     strategies = [11,122,21]
 
-    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start)
+    result = EvaluateStrategy(strategies, simulations, SimConfig(maxRange=1), start, 
+    preEvaluation = preEvaluateDataMock,
+    evaluateData= evaluateDataMock)
 
     assert len(strategies) == len(result)
 
 def test_initStrategies():
     maxRange = 3
-    expectedResult =[[1,1],[1,2],[2,1],[2,2]]
+    expectedResult =[4,5,7,8]
     
     result = initStrategies(maxRange)
 
