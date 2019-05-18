@@ -4,11 +4,12 @@ import Helpers.PlottingCollection as pc
 import Helpers.mathHelper as mh 
 import Helpers.WeightsHelper as wh 
 import Helpers.RandomWalkNumberGenerator as rw 
-
 from Helpers.Config import SimConfig
-from Evaluation.PreEvaluation import EndIntervallEvaluation as preEvaluateData
+
 from Evaluation.Performer import performStrategy
-import Helpers.RandomWalkNumberGenerator as rw 
+
+from Evaluation.PreEvaluation import preEvaluateData
+from Evaluation.PreEvaluation import endIntervallEvaluation as evaluation
 
 gainArray = []
 config = SimConfig(sellAtFactor=0.05, stopLossFactor=0.05 )
@@ -19,7 +20,7 @@ simulations = 100
 for i in range(simulations):
     walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
     data = walker.calcWalk(config.dataPoints)
-    preparedData = preEvaluateData(data, config.steps)
+    preparedData = preEvaluateData(data, config.steps, evaluation)
     gainArray.append(performStrategy(config, preparedData , data)[0])
 
 
