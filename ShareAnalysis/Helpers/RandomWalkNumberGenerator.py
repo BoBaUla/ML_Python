@@ -27,8 +27,12 @@ class RandomWalker:
             relStep = self.dice3(mu, sigma)
             while relStep > self.MaxStep:
                 relStep = self.dice3(mu, sigma)
-            last =  walk[i]
-            growth = np.log((last + relStep)/last)
+            last =  walk[i] 
+            newStep = last + relStep
+            if newStep > 0: 
+                growth = np.log((newStep)/last)
+            else:
+                growth = np.log((newStep - (2* relStep))/last)
             if self.dice2() > self.dice1():
                 walk.append(last *(1 + growth ))
             else :
