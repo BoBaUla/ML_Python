@@ -1,4 +1,4 @@
-from Evaluation.PreEvaluation import preEvaluateDataByRisingExpectedValue as preEvaluateData
+from Evaluation.PreEvaluation import  preEvaluateData
 
 def test_preEvaluation_Returs0AtNoSteps():
     listToTest = [0]
@@ -28,7 +28,7 @@ def test_preEvaluation_SubsetIsRealSubset_ResultHasCorrectLength():
 def test_preEvaluation_SubsetIsRealSubset_ResultIsCorrect():
     listToTest = [1,2,3,4,2,1]
     steps = 4
-    expectedResult = [[1,2,3,4,True],[2,3,4,2,False]]
+    expectedResult = [[1,2,3,4,False],[2,3,4,2,True]]
 
     result = preEvaluateData(listToTest, steps)
 
