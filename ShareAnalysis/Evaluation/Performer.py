@@ -49,7 +49,7 @@ def performStrategy(config, evaluatedData, dataSrc, sellStrategy = sellStrategy,
                 share = int((money - cost)/price) + share
                 money = round(money - share * price - cost,2)
                 sellAt = price * (1 + limitFactor)
-                stopLoss = price * (1 -stopLossFactor)
+                stopLoss = price * (1 - stopLossFactor)
                 buyAction.append(np.array([index, price, share, money]))
                 # print('i', stopLossFactor, 'j', limitFactor,'buy',
                 # 'dataNr', dataNr , round(price,2), round(sellAt,2), round(stopLoss,2), sep = '\t')
