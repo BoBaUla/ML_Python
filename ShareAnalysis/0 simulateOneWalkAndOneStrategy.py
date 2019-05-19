@@ -11,7 +11,7 @@ walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
 
 data = walker.calcWalk(config.dataPoints)
 preparedData = preEvaluateData(data, config.steps)
-[gain, buy, sell] = performStrategy(config, preparedData , data)
+[gain, buy, sell] = performStrategy(config, preparedData)
 
 
 fig, axs = plt.subplots(2,1)
