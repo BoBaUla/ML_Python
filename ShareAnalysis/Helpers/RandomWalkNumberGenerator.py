@@ -30,9 +30,9 @@ class RandomWalker:
             last =  walk[i] 
             newStep = last + relStep
             if newStep > 0: 
-                growth = np.log((newStep)/last)
+                growth = (newStep - last)/last
             else:
-                growth = np.log((newStep - (2* relStep))/last)
+                growth = (newStep - (2* relStep)-last)/last
             if self.dice2() > self.dice1():
                 walk.append(last *(1 + growth ))
             else :
@@ -61,3 +61,5 @@ class RandomWalker:
         plt.plot(walk)
         plt.show()
         
+# walker = RandomWalker(100)
+# walker.plotNewWalk(1000)
