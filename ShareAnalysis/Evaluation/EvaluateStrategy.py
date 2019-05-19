@@ -2,23 +2,23 @@ from Evaluation.PreEvaluation import preEvaluateData
 from Evaluation.PreEvaluation import evaluateBuyFallingSituation
 from Evaluation.Performer import performStrategy as evaluateData
 from Helpers.RandomWalkNumberGenerator import RandomWalker as walker
-# import time 
+import time 
 import numpy as np
 
 class StrategyMapper:
 
     maxRange = 1
 
-    def __init__(self, maxRange):
-        self.maxRange = maxRange
+    def __init__(self, maxStrategyRange):
+        self.maxStrategyRange = maxStrategyRange
 
 
     def mapStategyToNumber(self, strat):
-        return strat[0]* self.maxRange + strat[1]
+        return strat[0]* self.maxStrategyRange + strat[1]
 
     def mapNumberToStrategy(self, strat):
-        limitFactor = strat % self.maxRange
-        stopLoss = int((strat - limitFactor) / self.maxRange)
+        limitFactor = strat % self.maxStrategyRange
+        stopLoss = int((strat - limitFactor) / self.maxStrategyRange)
         return [stopLoss, limitFactor]
 
 class StratResult:
@@ -28,12 +28,10 @@ class StratResult:
         self.strategy = strategy
 
 def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = preEvaluateData, evaluateData = evaluateData):
-    mapper = StrategyMapper(config.maxRange)
+    mapper = StrategyMapper(config.maxStrategyRange)
     results = []
-    # t0 = 0
+    t0 =  time.time()
     for strat in strategies:
-        # t0 = time.thread_time()- t0
-        # print('strat:', (t0), sep = '\t')
         gainArray = []
         config.stopLossFactor, config.sellAtFactor = mapper.mapNumberToStrategy(strat)
         # t1 = t0
@@ -46,13 +44,15 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
             gain =  evaluateData(config, preparedData, data)[0]
             gainArray.append(gain)
         results.append(StratResult(gainArray, np.mean(gainArray), strat))
+        t =  time.time() - t0
+        print('strat:', np.round(t,2), 's', sep = '\t')
     return results
 
-def initStrategies(maxRange):
+def initStrategies(maxStrategyRange):
     strategies = []
-    mapper = StrategyMapper(maxRange)
-    for sellAtFactor in range(maxRange):
-        for stopLossFactor in range(maxRange):
+    mapper = StrategyMapper(maxStrategyRange)
+    for sellAtFactor in range(maxStrategyRange):
+        for stopLossFactor in range(maxStrategyRange):
             if sellAtFactor > 0 and stopLossFactor > 0:
                 strategies.append( mapper.mapStategyToNumber([sellAtFactor, stopLossFactor]))
     return strategies
