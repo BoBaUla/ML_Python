@@ -1,35 +1,37 @@
 from Evaluation.PreEvaluation import  preEvaluateData
 
-def test_preEvaluation_Returs0AtNoSteps():
-    listToTest = [0]
-    expectedResult = []
+class TestPreEvaluateData(object):
 
-    result = preEvaluateData(listToTest, 0)
+    def test_Returs0AtNoSteps(self):
+        listToTest = [0]
+        expectedResult = []
 
-    assert result == expectedResult
+        result = preEvaluateData(listToTest, 0)
 
-def test_preEvaluation_SubsetIsSmallerAsSteps_PerfomNoEvaluation():
-    listToTest = [0,2]
-    expectedResult = []
-    
-    result = preEvaluateData(listToTest, 3)
+        assert result == expectedResult
 
-    assert result == expectedResult
+    def test_SubsetIsSmallerAsSteps_PerfomNoEvaluation(self):
+        listToTest = [0,2]
+        expectedResult = []
+        
+        result = preEvaluateData(listToTest, 3)
 
-def test_preEvaluation_SubsetIsRealSubset_ResultHasCorrectLength():
-    listToTest = [0,2,2,3,5,4,2,1]
-    steps = 4
-    expectedResult = len(listToTest) -  steps
-    
-    result = preEvaluateData(listToTest, steps)
+        assert result == expectedResult
 
-    assert len(result) == expectedResult
+    def test_SubsetIsRealSubset_ResultHasCorrectLength(self):
+        listToTest = [0,2,2,3,5,4,2,1]
+        steps = 4
+        expectedResult = len(listToTest) -  steps
+        
+        result = preEvaluateData(listToTest, steps)
 
-def test_preEvaluation_SubsetIsRealSubset_ResultIsCorrect():
-    listToTest = [1,2,3,4,2,1]
-    steps = 4
-    expectedResult = [[1,2,3,4,False],[2,3,4,2,True]]
+        assert len(result) == expectedResult
 
-    result = preEvaluateData(listToTest, steps)
+    def test_SubsetIsRealSubset_ResultIsCorrect(self):
+        listToTest = [1,2,3,4,2,1]
+        steps = 4
+        expectedResult = [[1,2,3,4,False],[2,3,4,2,True]]
 
-    assert result == expectedResult
+        result = preEvaluateData(listToTest, steps)
+
+        assert result == expectedResult
