@@ -93,7 +93,7 @@ class TestEvaluateStrategy(object):
     def preEvaluateDataMock(self,data, steps, evaluationStrategy):
         return data
 
-    def evaluateDataMock(self,config, prepareData, data):
+    def evaluateDataMock(self,config, prepareData):
         return [0,1]
 
     def test_EvaluateStrategy_ReturnsNothingAtEmptyStrategy(self):

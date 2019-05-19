@@ -1,6 +1,6 @@
 from Evaluation.PreEvaluation import preEvaluateData 
 from Evaluation.PreEvaluation import evaluateBuyFallingSituation
-from Evaluation.Performer import performStrategy as evaluateData
+from Evaluation.Performer import performStrategy as performer
 from Helpers.RandomWalkNumberGenerator import RandomWalker as walker
 import time 
 import numpy as np
@@ -27,7 +27,7 @@ class StratResult:
         self.meanGain = meanGain
         self.strategy = strategy
 
-def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = preEvaluateData, evaluateData = evaluateData):
+def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = preEvaluateData, performer = performer):
     mapper = StrategyMapper(config.maxStrategyRange)
     results = []
     t0 =  time.time()
@@ -41,7 +41,7 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
             rw = walker(start)
             data = rw.calcWalk(config.dataPoints)
             preparedData = preEvaluation(data, config.steps, evaluateBuyFallingSituation)
-            gain =  evaluateData(config, preparedData, data)[0]
+            gain =  performer(config, preparedData)[0]
             gainArray.append(gain)
         results.append(StratResult(gainArray, np.mean(gainArray), strat))
         t =  time.time() - t0
