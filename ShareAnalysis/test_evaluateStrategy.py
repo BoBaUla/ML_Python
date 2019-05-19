@@ -101,7 +101,7 @@ class TestEvaluateStrategy(object):
         
         result = EvaluateStrategy(strategies, self.simulations, SimConfig(maxStrategyRange=1), self.start, 
         preEvaluation = self.preEvaluateDataMock,
-        evaluateData= self.evaluateDataMock)
+        performer = self.evaluateDataMock)
         assert len(strategies) == len(result)
 
     def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategy(self):
@@ -109,7 +109,7 @@ class TestEvaluateStrategy(object):
 
         result = EvaluateStrategy(strategies, self.simulations, SimConfig(maxStrategyRange=1), self.start, 
         preEvaluation = self.preEvaluateDataMock,
-        evaluateData= self.evaluateDataMock)
+        performer = self.evaluateDataMock)
         
         assert len(strategies) == len(result)
 
@@ -119,7 +119,7 @@ class TestEvaluateStrategy(object):
 
         result = EvaluateStrategy(strategies, self.simulations, SimConfig(maxStrategyRange=1), self.start, 
         preEvaluation = self.preEvaluateDataMock,
-        evaluateData= self.evaluateDataMock)
+        performer = self.evaluateDataMock)
 
         assert len(strategies) == len(result)
 
