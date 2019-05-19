@@ -13,6 +13,10 @@ def buyShare(money, fee, price, share):
 def adjustMoneyAfterBuyAction(money, fee, price, share):
     return round(money - share * price - fee,2)
 
+def getLastPrice(evaluatedData, steps):
+    return evaluatedData[len(evaluatedData)- 1].subset[steps - 1]
+    
+
 def performStrategy(config, evaluatedData, sellStrategy = sellStrategy):    
     # print('evaluateData')
     if  not (isinstance(config, SimConfig)):
@@ -49,7 +53,7 @@ def performStrategy(config, evaluatedData, sellStrategy = sellStrategy):
             buyAction.append(np.array([index, price, share, money]))
             # print('i', stopLossFactor, 'j', limitFactor,'buy',
             # 'dataNr', dataNr , round(price,2), round(sellAt,2), round(stopLoss,2), sep = '\t')
-        elif share > 0 and sellStrategy(price, sellAt, stopLoss):
+        elif share > 0 and sellStrategy(price, sellAt, stopLoss) and price > 0:
             money = round((money + price * share) - fee,2)
             share = 0
             sellAction.append(np.array([index, price, share, money]))
@@ -58,5 +62,6 @@ def performStrategy(config, evaluatedData, sellStrategy = sellStrategy):
 
         dataNr = dataNr + 1
         #print(i, round(price,2), sep='\t')
-    gain = round(money + share * price,2)
+    
+    gain = round(money + share * getLastPrice(evaluatedData, steps),2)
     return gain, buyAction, sellAction 

@@ -5,13 +5,21 @@ from Helpers.Config import SimConfig
 # pytest test_Performer.py
 
 config = SimConfig(invest=10, fee=2, steps=4, sellAtFactor=0, stopLossFactor=0)
-dataSet = EvaluatedData([0,0,0], True, 0)
+dataSet = EvaluatedData([0,0,1], True, 0)
 
 def sellMockTrue(arg1, arg2, arg3): 
         return True
 
 def sellMockFalse(arg1, arg2, arg3): 
         return False
+
+class TestGetLastPrice(object):
+
+    def test_GetsLastPrice(self):
+        evaSet = [dataSet, dataSet]
+        steps = len(dataSet.subset)
+        result = performer.getLastPrice(evaSet, steps)        
+        assert result == dataSet.subset[steps-1]
 
 class TestEnoughMoneyLeft(object):
 
@@ -37,14 +45,6 @@ class TestBuyShare(object):
 
 class TestPerformStrategy(object):
     
-    def test_ReturnIfMaxGainIsReached(self):
-        config.maxGainFactor = 0
-        preEvaluatedData =  [dataSet, dataSet, dataSet]
-        result = performer.performStrategy(config,preEvaluatedData)
-
-        expectedResult = (config.invest, [], [])
-        assert result == expectedResult
-        
     def test_PerformOneBuyAction_PerformNoSellAction(self):
         config.maxGainFactor = 10
         evaluatedData = [
@@ -129,3 +129,28 @@ class TestPerformStrategy(object):
         gain, buyAction, sellAction = performer.performStrategy(config, evaluatedData, sellStrategy = sellMockTrue)
         assert len(buyAction) == 2
         assert len(sellAction) == 2
+
+    def test_ReturnsGainCorrect_NoShareLeft(self):
+        config.maxGainFactor = 100
+        evaluatedData = [ # fee = 2
+            EvaluatedData([2,3,4,2],True,1), # kaufe 8 für 1 => m = 0 s = 8
+            EvaluatedData([2,3,4,2],False,2), # verkaufe 8 für 2 => m = 16 - 2 = 14 s = 0
+            EvaluatedData([2,3,4,2],True,1), # kaufe 12 für 1 => m = 0 s = 12
+            EvaluatedData([2,3,4,2],True,2), # verkaufe 12 für 2 => m = 24 -2 = 22 s = 0
+            EvaluatedData([2,3,4,2],True,0)]
+        gain, buyAction, sellAction = performer.performStrategy(config, evaluatedData, sellStrategy = sellMockTrue)
+        assert gain == 22
+        assert len(buyAction) == 2
+        assert len(sellAction) == 2
+    
+    def test_ReturnsGainCorrect_SomeShareLeft(self):
+        config.maxGainFactor = 100
+        evaluatedData = [ # fee = 2
+            EvaluatedData([2,3,4,2],True,1), # kaufe 8 für 1 => m = 0 s = 8
+            EvaluatedData([2,3,4,2],False,2), # verkaufe 8 für 2 => m = 16 - 2 = 14 s = 0
+            EvaluatedData([2,3,4,2],True,1), # kaufe 12 für 1 => m = 0 s = 12
+            EvaluatedData([2,3,4,2],True,0)]
+        gain, buyAction, sellAction = performer.performStrategy(config, evaluatedData, sellStrategy = sellMockTrue)
+        assert gain == 24
+        assert len(buyAction) == 2
+        assert len(sellAction) == 1
