@@ -4,7 +4,7 @@ import Helpers.PlottingCollection as pc
 import Helpers.mathHelper as mh
 from Helpers.ReadingData import readData
 from Helpers.Config import SimConfig
-from Evaluation.PreEvaluation import  StartIntervallEvaluation as preEvaluateData
+from Evaluation.PreEvaluation import  startIntervallEvaluation, preEvaluateData
 from Evaluation.Performer import performStrategy
 
 workingfiles = [
@@ -15,14 +15,17 @@ workingfiles = [
 'SAP_2018-04-09_bis_2019-04-05_Year.csv',
 'SAP_2014-04-11_bis_2019-04-05_5Years.csv']
 
-steps = 50
-limitU = 0.09
-limitD = 0.01
-fee = 5
+config = SimConfig(
+        steps = 50,
+        stopLossFactor =0.01,
+        sellAtFactor= 0.09,
+        fee = 5
+        )
+
 for i in workingfiles:
     data =  readData(i)
-    prepateredData = preEvaluateData(data, steps= steps)
-    [gain, buy, sell] = performStrategy( SimConfig(), prepateredData, data, limitU, limitD)
+    prepateredData = preEvaluateData(data, config.steps, startIntervallEvaluation)
+    [gain, buy, sell] = performStrategy(config , prepateredData)
     if len(buy) >0 and len(sell)>0:
         buyX = np.array(buy)[:,0]
         buyY = np.array(buy)[:,1]
