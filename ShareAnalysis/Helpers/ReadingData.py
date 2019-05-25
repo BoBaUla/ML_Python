@@ -4,7 +4,7 @@ from Helpers.formatter import prepareData
 
 def readData(filename, feature = 'Hoch'):
     cwd = os.getcwd()
-    # folder = 'Testfiles'
+    #folder = 'Testfiles'
     folder = 'Demofiles'
     workingfile = filename
     targetpath = os.path.join(cwd, folder, workingfile)

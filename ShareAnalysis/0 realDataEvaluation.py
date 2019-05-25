@@ -6,14 +6,14 @@ from Helpers.ReadingData import readData
 from Helpers.Config import SimConfig
 from Evaluation.PreEvaluation import  startIntervallEvaluation, preEvaluateData
 from Evaluation.Performer import performStrategy
+# 
+# GEHT LEIDER NOCH NICHT!
+#  
+
 
 workingfiles = [
-'SAP_03_04_bis_05_04_Week.csv',
-'SAP_2019-03-25_bis_2019-04-05_2Week.csv',
-'SAP_2019-01-07_bis_2019-04-05_3Month.csv',
-'SAP_2018-10-08_bis_2019-04-05_6Month.csv',
-'SAP_2018-04-09_bis_2019-04-05_Year.csv',
-'SAP_2014-04-11_bis_2019-04-05_5Years.csv']
+'A0LEW8_MRZ_01.csv',
+]
 
 config = SimConfig(
         steps = 50,

@@ -5,8 +5,8 @@ from Helpers import PlottingCollection as pcol
 import numpy as np 
 
 config = SimConfig(
-    maxStrategyRange=5, 
-    dataPoints=1000, 
+    maxStrategyRange=10, 
+    dataPoints=500, 
     init=np.random.randint(50,150),
     mu= 0,
     sigma= 0.4,
@@ -14,7 +14,7 @@ config = SimConfig(
     fee = 5,
     steps=50)
 
-simulations = 10
+simulations = 5
 
 strategies = initStrategies(config.maxStrategyRange)
 evaluations = len(strategies) * simulations

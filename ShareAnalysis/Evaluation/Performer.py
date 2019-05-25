@@ -48,8 +48,8 @@ def performStrategy(config, evaluatedData, sellStrategy = sellStrategy):
         if buy and enoughMoneyLeft(money, fee, price) and price > 0:
             share = buyShare(money, fee, price, share)
             money = adjustMoneyAfterBuyAction(money, fee, price, share)
-            sellAt = price * (1 + limitFactor)
-            stopLoss = price * (1 - stopLossFactor)
+            sellAt = price * (1 + limitFactor/100)
+            stopLoss = price * (1 - stopLossFactor/100)
             buyAction.append(np.array([index, price, share, money]))
             # print('i', stopLossFactor, 'j', limitFactor,'buy',
             # 'dataNr', dataNr , round(price,2), round(sellAt,2), round(stopLoss,2), sep = '\t')
