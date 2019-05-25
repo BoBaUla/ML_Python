@@ -5,9 +5,6 @@ import Helpers.RandomWalkNumberGenerator as rw
 def simpleDice3PositiveMock(arg):
     return 1
 
-def simpleDice3NegativeMock(arg):
-    return 1
-
 class TestCalcWalk(object):
   
 
