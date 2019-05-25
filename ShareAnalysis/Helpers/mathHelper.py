@@ -31,3 +31,13 @@ def getRelationLargerThan(value, dataset):
         if dat < value:
             count = count + 1
     return count / length
+
+def linearInterpolation(dataset):
+    xValue = range(len(dataset))
+    yValue = dataset
+    return m.polyfit(xValue, yValue, 1)
+
+def squareInterpolation(dataset):
+    xValue = range(len(dataset))
+    yValue = dataset
+    return m.polyfit(xValue, yValue, 2)    
