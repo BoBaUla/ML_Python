@@ -12,8 +12,12 @@ from Evaluation.PreEvaluation import preEvaluateData
 from Evaluation.PreEvaluation import endIntervallEvaluation as evaluation
 
 gainArray = []
-config = SimConfig(sellAtFactor=0.05, stopLossFactor=0.05 )
-config.mu = np.random.randint(-100,100)/100
+config = SimConfig(
+    sellAtFactor=0.05, 
+    stopLossFactor=0.05, 
+    mu = np.random.randint(-100,100)/100,
+    sigma = np.random.randint(0.1,2))
+
 simulations = 100
 
 
