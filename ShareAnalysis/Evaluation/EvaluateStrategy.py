@@ -33,7 +33,9 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
     t0 =  time.time()
     for strat in strategies:
         gainArray = []
-        config.stopLossFactor, config.sellAtFactor = mapper.mapNumberToStrategy(strat)
+        stopLoss, sellAt = mapper.mapNumberToStrategy(strat)
+        config.stopLossFactor = stopLoss / 100
+        config.sellAtFactor = sellAt / 100
         # t1 = t0
         for sim in range(simulations):
             # t1 = time.thread_time()- t1
