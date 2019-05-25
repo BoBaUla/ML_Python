@@ -16,43 +16,30 @@ class RandomWalker:
     def dice2(self):
         return rand.randint(0,100)
 
-    def dice3(self, mu, sigma):
-        return rand.normal(mu, sigma)
+    def dice3(self):
+        value = rand.normal(self.Mean, self.Std)
+        if value > self.MaxStep:
+            value = self.MaxStep
+        if value < (-1)*self.MaxStep:
+            value = (-1)*self.MaxStep
+        return value
 
-    def calcWalk(self,steps):
+    def getRelativeChange(self, dice3):
+        return 1 + dice3(self) / 100
+
+    def calcWalk(self,steps, dice1 = dice1, dice2 = dice2, dice3 = dice3):
         walk = [self.Start]
         for i in range(steps):
-            mu = self.Mean
-            sigma = self.Std
-            relStep = self.dice3(mu, sigma)
-            while relStep > self.MaxStep:
-                relStep = self.dice3(mu, sigma)
+            relativeChange = self.getRelativeChange(dice3)
             last =  walk[i] 
-            newStep = last + relStep
-            if newStep > 0: 
-                growth = (newStep - last)/last
-            else:
-                growth = (newStep - (2* relStep)-last)/last
-            if self.dice2() > self.dice1():
-                walk.append(last *(1 + growth ))
+            if dice2(self) > dice1(self):
+                walk.append(last * relativeChange)
             else :
-                walk.append(last *(1 - growth ))
+                walk.append(last / relativeChange)
         return walk
      
-    def plotNewWalk(self, steps):
-        walk = [self.Start]
-        for i in range(steps):
-            mu = self.Mean
-            sigma = self.Std
-            relStep = self.dice3(mu, sigma)
-            while relStep > self.MaxStep:
-                relStep = self.dice3(mu, sigma)
-            last =  walk[i]
-            growth = np.log((last + relStep)/last)
-            if self.dice2() > self.dice1():
-                walk.append(last *(1 + growth ))
-            else :
-                walk.append(last *(1 - growth ))
+    def plotNewWalk(self, steps, dice1 = dice1, dice2 = dice2, dice3 = dice3):
+        walk = self.calcWalk(steps)
         plt.plot(walk)
         plt.show()
         return walk
@@ -61,5 +48,5 @@ class RandomWalker:
         plt.plot(walk)
         plt.show()
         
-# walker = RandomWalker(100)
-# walker.plotNewWalk(1000)
+# walker = RandomWalker(1)
+# walker.plotNewWalk(10000)
