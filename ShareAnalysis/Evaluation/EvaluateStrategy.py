@@ -1,5 +1,5 @@
 from Evaluation.PreEvaluation import preEvaluateData 
-from Evaluation.PreEvaluation import evaluateBuyFallingSituation
+from Evaluation.PreEvaluation import evaluateByFallingSituation
 from Evaluation.Performer import performStrategy as performer
 from Helpers.RandomWalkNumberGenerator import RandomWalker as walker
 import time 
@@ -42,7 +42,7 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
             # print('sim:', (t1), sep = '\t')
             rw = walker(start)
             data = rw.calcWalk(config.dataPoints)
-            preparedData = preEvaluation(data, config.steps, evaluateBuyFallingSituation)
+            preparedData = preEvaluation(data, config.steps, evaluateByFallingSituation)
             gain =  performer(config, preparedData)[0]
             gainArray.append(gain)
         results.append(StratResult(gainArray, np.mean(gainArray), strat))
