@@ -17,9 +17,9 @@ class StrategyMapper:
         return strat[0]* self.maxStrategyRange + strat[1]
 
     def mapNumberToStrategy(self, strat):
-        limitFactor = strat % self.maxStrategyRange
-        stopLoss = int((strat - limitFactor) / self.maxStrategyRange)
-        return [stopLoss, limitFactor]
+        sellAt = strat % self.maxStrategyRange
+        stopLoss = int((strat - sellAt) / self.maxStrategyRange)
+        return [stopLoss, sellAt]
 
 class StratResult:
     def __init__(self, gainArray, meanGain, strategy):
