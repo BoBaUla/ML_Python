@@ -21,7 +21,7 @@ for i in range(simulations):
     walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
     data = walker.calcWalk(config.dataPoints)
     preparedData = preEvaluateData(data, config.steps, evaluation)
-    gainArray.append(performStrategy(config, preparedData , data)[0])
+    gainArray.append(performStrategy(config, preparedData)[0])
 
 
 avg = np.mean(gainArray)
