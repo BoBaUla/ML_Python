@@ -4,7 +4,8 @@ import Helpers.PlottingCollection as pc
 import Helpers.mathHelper as mh
 from Helpers.ReadingData import readData
 from Helpers.Config import SimConfig
-from Evaluation.PreEvaluation import  startIntervallEvaluation, preEvaluateData
+from Evaluation.PreEvaluationStrategies import  startIntervallEvaluation
+from Evaluation.EvaluateStrategy import preEvaluateData
 from Evaluation.Performer import performStrategy
 # 
 # GEHT LEIDER NOCH NICHT!
@@ -19,8 +20,7 @@ config = SimConfig(
         steps = 50,
         stopLossFactor =0.01,
         sellAtFactor= 0.09,
-        fee = 5
-        )
+        fee = 5)
 
 for i in workingfiles:
     data =  readData(i)

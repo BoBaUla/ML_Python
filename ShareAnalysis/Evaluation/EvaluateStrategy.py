@@ -1,5 +1,5 @@
 from Evaluation.PreEvaluation import preEvaluateData 
-from Evaluation.PreEvaluation import evaluateByFallingSituation
+from Evaluation.PreEvaluationStrategies import evaluateByFallingSituation
 from Evaluation.Performer import performStrategy as performer
 from Helpers.RandomWalkNumberGenerator import RandomWalker as walker
 import time 

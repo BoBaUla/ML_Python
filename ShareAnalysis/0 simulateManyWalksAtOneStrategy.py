@@ -9,7 +9,7 @@ from Helpers.Config import SimConfig
 from Evaluation.Performer import performStrategy
 
 from Evaluation.PreEvaluation import preEvaluateData
-from Evaluation.PreEvaluation import endIntervallEvaluation as evaluation
+from Evaluation.PreEvaluationStrategies import endIntervallEvaluation as evaluation
 
 gainArray = []
 config = SimConfig(

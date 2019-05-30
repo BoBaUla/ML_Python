@@ -21,7 +21,7 @@ def getNextValue(currentIndex, steps, data):
     else:
         return 0
 
-def preEvaluateData(data, steps = 1, evaluation):
+def preEvaluateData(data, evaluation, steps = 1):
     # print('preEvaluateData')
     if steps == 0:
         return []

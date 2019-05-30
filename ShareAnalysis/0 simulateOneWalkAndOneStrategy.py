@@ -3,6 +3,7 @@ import numpy as np
 
 from Helpers.Config import SimConfig
 from Evaluation.PreEvaluation import *
+from Evaluation.PreEvaluationStrategies import *
 from Evaluation.Performer import performStrategy
 import Helpers.RandomWalkNumberGenerator as rw 
 
@@ -44,7 +45,7 @@ endResults = performStrategy(config, endPreparedData)
 fallingPreparedData =   preEvaluateData(data, config.steps, evaluateByFallingSituation)
 fallingResults = performStrategy(config, fallingPreparedData)
 
-risingPreparedData =   preEvaluateData(data, config.steps, evaluateBuyRisingSituation)
+risingPreparedData =   preEvaluateData(data, config.steps, evaluateByRisingSituation)
 risingResults = performStrategy(config, risingPreparedData)
 
 linearRisingPrepareData =  preEvaluateData(data, config.steps, linearInterpolationRisingEvaluation)
