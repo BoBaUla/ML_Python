@@ -54,7 +54,7 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
         if not printed:
             print('estimated duration:', (durationFactor -1)* t * 10, 's', sep = '\t')
             printed = True
-        print('strat:', count, 'from', len(strategies), 'duration', np.round(t,2), 's', 'mean result:', results[count-1], sep = '\t')
+        print('strat:', count, 'from', len(strategies), 'duration', np.round(t,2), 's', 'mean result:', results[count-1].meanGain, sep = '\t')
 
     return results
 
