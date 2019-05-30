@@ -42,7 +42,7 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
             # print('sim:', (t1), sep = '\t')
             rw = walker(start)
             data = rw.calcWalk(config.dataPoints)
-            preparedData = preEvaluation(data, config.steps, evaluateByFallingSituation)
+            preparedData = preEvaluation(data, evaluateByFallingSituation, config.steps)
             gain =  performer(config, preparedData)[0]
             gainArray.append(gain)
         results.append(StratResult(gainArray, np.mean(gainArray), strat))
