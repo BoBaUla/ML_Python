@@ -8,7 +8,7 @@ def filterZero(data):
         return result
 
 
-def plotHist(data, plt, step, color = 'blue'):
+def plotHist(data, plt, step, color = 'blue', title =''):
         if len(data) == 0:
                 return 
 
@@ -20,5 +20,6 @@ def plotHist(data, plt, step, color = 'blue'):
         std = np.std(filterZero(valY))
         plt.plot([min(valX), max(valX)],[avg,avg], 'r-')
         plt.plot([min(valX), max(valX)],[avg+std,avg+std], 'g-')
+        plt.set_title(title)
         plt.grid()
         return valX, valY, avg, std
