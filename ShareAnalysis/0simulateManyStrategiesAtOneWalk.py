@@ -14,15 +14,22 @@ from Evaluation.PreEvaluationStrategies import endIntervallEvaluation as evaluat
 
 gainArray = []
 result = []
-config = SimConfig(sellAtFactor=0.05, stopLossFactor=0.05, maxStrategyRange=13 )
-config.mu = np.random.randint(-100,100)/100
+config = SimConfig(
+    mu= np.random.randint(-100,100)/100,
+    sellAtFactor=0.05, 
+    stopLossFactor=0.05,
+    maxStrategyRange=13)
+    
 strategies = initStrategies(config.maxStrategyRange)
 mapper = StrategyMapper(config.maxStrategyRange)
 
 walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
 data = walker.calcWalk(config.dataPoints)
+
 for i in strategies:  
-    config.stopLossFactor, config.sellAtFactor = mapper.mapNumberToStrategy(i)
+    stopLossFactor, sellAtFactor = mapper.mapNumberToStrategy(i)
+    config.stopLossFactor = stopLossFactor/100
+    config.sellAtFactor = sellAtFactor/100
     preparedData = preEvaluateData(data, evaluation, config.steps)
     gain = performStrategy(config, preparedData)[0]
     print(i, config.stopLossFactor, config.sellAtFactor, gain, sep = '\t')
