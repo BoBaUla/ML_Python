@@ -1,30 +1,14 @@
 import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
+import Helpers.RandomWalkNumberGenerator as rw 
 
 from Helpers.Config import SimConfig
 from Evaluation.PreEvaluation import preEvaluateData
 from Evaluation.PreEvaluationStrategies import *
 from Evaluation.Performer import performStrategy
-import Helpers.RandomWalkNumberGenerator as rw 
+from Helpers.PlottingCollection import plotResults
 
 
-def plotResults(plt, description, data, results):
-    plt.plot(data, 'k-')
-    plt.set_title(description)
-
-    if len(results[1]) > 0:
-        buyX = np.array(results[1])[:,0]
-        buyY = np.array(results[1])[:,1]
-        plt.plot(buyX, buyY, 'go', label = 'buy')
-
-    if len(results[2]) > 0:
-        sellX = np.array(results[2])[:,0]
-        sellY = np.array(results[2])[:,1]
-        plt.plot(sellX, sellY, 'rx', label = 'sell')
-    plt.legend()
-    plt.grid()
-
-    print(description, results[0], sep= '\t')
 
 config = SimConfig(
     sellAtFactor=0.04, 

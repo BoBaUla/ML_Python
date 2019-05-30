@@ -23,3 +23,22 @@ def plotHist(data, plt, step, color = 'blue', title =''):
         plt.set_title(title)
         plt.grid()
         return valX, valY, avg, std
+
+def plotResults(plt, description, data, results, logging = True):
+    plt.plot(data, 'k-')
+    plt.set_title(description)
+
+    if len(results[1]) > 0:
+        buyX = np.array(results[1])[:,0]
+        buyY = np.array(results[1])[:,1]
+        plt.plot(buyX, buyY, 'go', label = 'buy')
+
+    if len(results[2]) > 0:
+        sellX = np.array(results[2])[:,0]
+        sellY = np.array(results[2])[:,1]
+        plt.plot(sellX, sellY, 'rx', label = 'sell')
+    plt.legend()
+    plt.grid()
+
+    if logging:
+        print(description, results[0], sep= '\t')
