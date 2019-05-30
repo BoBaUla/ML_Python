@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
 
 from Helpers.Config import SimConfig
-from Evaluation.PreEvaluation import *
+from Evaluation.PreEvaluation import preEvaluateData
 from Evaluation.PreEvaluationStrategies import *
 from Evaluation.Performer import performStrategy
 import Helpers.RandomWalkNumberGenerator as rw 
@@ -39,25 +39,25 @@ data = walker.calcWalk(config.dataPoints)
 startPreparedData = preEvaluateData(data, startIntervallEvaluation, config.steps)
 startResults = performStrategy(config, startPreparedData)
 
-endPreparedData =   preEvaluateData(data, config.steps, endIntervallEvaluation)
+endPreparedData =   preEvaluateData(data, endIntervallEvaluation, config.steps)
 endResults = performStrategy(config, endPreparedData)
 
-fallingPreparedData =   preEvaluateData(data, config.steps, evaluateByFallingSituation)
+fallingPreparedData =   preEvaluateData(data, evaluateByFallingSituation, config.steps)
 fallingResults = performStrategy(config, fallingPreparedData)
 
-risingPreparedData =   preEvaluateData(data, config.steps, evaluateByRisingSituation)
+risingPreparedData =   preEvaluateData(data, evaluateByRisingSituation, config.steps)
 risingResults = performStrategy(config, risingPreparedData)
 
-linearRisingPrepareData =  preEvaluateData(data, config.steps, linearInterpolationRisingEvaluation)
+linearRisingPrepareData =  preEvaluateData(data, linearInterpolationRisingEvaluation, config.steps)
 linearRisingResults = performStrategy(config, linearRisingPrepareData)
 
-linearFallingPrepareData =  preEvaluateData(data, config.steps, linearInterpolationFallingEvaluation)
+linearFallingPrepareData =  preEvaluateData(data, linearInterpolationFallingEvaluation, config.steps)
 linearFallingResults = performStrategy(config, linearFallingPrepareData)
 
-squareMinPrepareData =  preEvaluateData(data, config.steps, squareInterpolation_HasMinimumEvaluation)
+squareMinPrepareData =  preEvaluateData(data, squareInterpolation_HasMinimumEvaluation, config.steps)
 squareMinResults = performStrategy(config, squareMinPrepareData)
 
-squareMaxPrepareData =  preEvaluateData(data, config.steps, squareInterpolation_HasMaximumEvaluation)
+squareMaxPrepareData =  preEvaluateData(data, squareInterpolation_HasMaximumEvaluation, config.steps)
 squareMaxResults = performStrategy(config, squareMaxPrepareData)
 
 fig, axs = plt.subplots(2,4)
