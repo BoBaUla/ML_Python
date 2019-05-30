@@ -42,3 +42,11 @@ def plotResults(plt, description, data, results, logging = True):
 
     if logging:
         print(description, results[0], sep= '\t')
+
+def plotData(plt, description, data, subdata = [], logging = True):
+    plt.plot(data, 'k-')
+    if len(description) >0:
+        plt.set_title(description)
+
+    if len(subdata) > 0:
+        plt.plot(subdata[0], subdata[1], 'go', label = 'subset')
