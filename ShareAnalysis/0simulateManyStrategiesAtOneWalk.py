@@ -23,7 +23,7 @@ walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
 data = walker.calcWalk(config.dataPoints)
 for i in strategies:  
     config.stopLossFactor, config.sellAtFactor = mapper.mapNumberToStrategy(i)
-    preparedData = preEvaluateData(data, config.steps, evaluation)
+    preparedData = preEvaluateData(data, evaluation, config.steps)
     gain = performStrategy(config, preparedData)[0]
     print(i, config.stopLossFactor, config.sellAtFactor, gain, sep = '\t')
     gainArray.append(gain)

@@ -24,7 +24,7 @@ config = SimConfig(
 
 for i in workingfiles:
     data =  readData(i)
-    prepateredData = preEvaluateData(data, config.steps, startIntervallEvaluation)
+    prepateredData = preEvaluateData(data, startIntervallEvaluation, config.steps)
     [gain, buy, sell] = performStrategy(config , prepateredData)
     if len(buy) >0 and len(sell)>0:
         buyX = np.array(buy)[:,0]

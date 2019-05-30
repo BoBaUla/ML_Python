@@ -24,7 +24,7 @@ simulations = 100
 for i in range(simulations):
     walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
     data = walker.calcWalk(config.dataPoints)
-    preparedData = preEvaluateData(data, config.steps, evaluation)
+    preparedData = preEvaluateData(data, evaluation, config.steps)
     gainArray.append(performStrategy(config, preparedData)[0])
 
 
