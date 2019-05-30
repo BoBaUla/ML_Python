@@ -60,7 +60,7 @@ class TestPreEvaluateData_CuttingSubsets(object):
     data = [0,1,2]
 
     def test_GetsCorrectSubsets_AtSteps1(self):
-        result = preEvaluateData(self.data)
+        result = preEvaluateData(self.data, lambda a, b : True )
         
         expectedResult = [EvaluatedData([0],[],0), EvaluatedData([1],[],0), EvaluatedData([2],[],0)]
 
@@ -68,15 +68,15 @@ class TestPreEvaluateData_CuttingSubsets(object):
             assert result[i].subset == expectedResult[i].subset
     
     def test_GetsCorrectSubsets_AtSteps2(self):
-        result = preEvaluateData(self.data,2)
-        
+        result = preEvaluateData(self.data, lambda a, b : True, 2)
+         
         expectedResult = [EvaluatedData([0,1],[],0), EvaluatedData([1,2],[],0)]
         
         for i in range(len(expectedResult)):
             assert result[i].subset == expectedResult[i].subset
     
     def test_GetsCorrectSubsets_AtSteps3(self):
-        result = preEvaluateData(self.data,3)
+        result = preEvaluateData(self.data, lambda a, b : True, 3)
         
         expectedResult = [EvaluatedData([0,1,2],[],0)]
         
@@ -88,7 +88,7 @@ class TestPreEvaluationData_SettingNextValue(object):
     data = [0,1,2]
 
     def test_GetsCorrectNext_AtSteps1(self):
-        result = preEvaluateData(self.data)
+        result = preEvaluateData(self.data, lambda a, b : True)
         
         expectedResult = [EvaluatedData([0],[],1), EvaluatedData([1],[],2), EvaluatedData([2],[],0)]
 
@@ -96,7 +96,7 @@ class TestPreEvaluationData_SettingNextValue(object):
             assert result[i].nextValue == expectedResult[i].nextValue
     
     def test_GetsCorrectNext_AtSteps2(self):
-        result = preEvaluateData(self.data,2)
+        result = preEvaluateData(self.data, lambda a, b : True, 2)
         
         expectedResult = [EvaluatedData([0,1],[],2), EvaluatedData([1,2],[],0)]
         
@@ -104,7 +104,7 @@ class TestPreEvaluationData_SettingNextValue(object):
             assert result[i].nextValue == expectedResult[i].nextValue
     
     def test_GetsCorrectNext_AtSteps3(self):
-        result = preEvaluateData(self.data,3)
+        result = preEvaluateData(self.data, lambda a, b : True, 3)
         
         expectedResult = [EvaluatedData([0,1,2],[],0)]
         
@@ -117,7 +117,7 @@ class TestPreEvaluation_Misc(object):
         listToTest = [0]
         expectedResult = []
 
-        result = preEvaluateData(listToTest, 0)
+        result = preEvaluateData(listToTest, lambda a, b : True, 0)
 
         assert result == expectedResult
 
@@ -126,7 +126,7 @@ class TestPreEvaluation_Misc(object):
         steps = 2
         expectedResult = calcLastIndex(listToTest, steps) + 1
         
-        result = preEvaluateData(listToTest, steps)
+        result = preEvaluateData(listToTest, lambda a, b : True, steps)
 
         assert len(result) == expectedResult
 
@@ -140,7 +140,7 @@ class TestPreEvaluation_Misc(object):
             ]
 
 
-        result = preEvaluateData(listToTest, steps, evaluationMockMethodTrue)
+        result = preEvaluateData(listToTest, evaluationMockMethodTrue, steps)
 
         for i in range(len(expectedResult)):
             assert result[i].nextValue == expectedResult[i].nextValue
