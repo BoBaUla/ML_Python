@@ -14,6 +14,15 @@ def returnInLn(value0, value1, stretch = 1):
     result = m.log(value1/value0)
     return result * stretch
 
+def returnFromDataRelativ(dataList):
+    result = []
+    for i in range(len(dataList)-1):
+        result.append(returnRelative(dataList[i],dataList[i+1]))
+    return result
+
+def returnRelative(value0, value1):
+    return (value1-value0)/(value0)
+
 def getBinomialPropability(data, limit = 0):
     n = len(data)
     m = 0
