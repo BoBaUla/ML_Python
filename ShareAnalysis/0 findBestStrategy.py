@@ -26,10 +26,10 @@ badStrategies = filterBadStrategies(evalutatedStrategies, config.invest)
 
 fig, axs = plt.subplots(2,2)
 
-pcol.plotHist(goodStrategies[0], axs[0][1], 1,  color = 'green')
-pcol.plotHist(goodStrategies[1], axs[1][1], 5,  color = 'green')
+pcol.plotHist(goodStrategies[0], axs[0][1], 1,  color = 'green', title = 'Limits')
+pcol.plotHist(goodStrategies[1], axs[1][1], 5,  color = 'green', title = 'Resultate')
 
-pcol.plotHist(badStrategies[0], axs[0][0], 1, color= 'red')
-pcol.plotHist(badStrategies[1], axs[1][0], 5, color= 'red')
+pcol.plotHist(badStrategies[0], axs[0][0], 1, color= 'red', title = 'Limits')
+pcol.plotHist(badStrategies[1], axs[1][0], 5, color= 'red', title = 'Resultate')
 
 plt.show()
