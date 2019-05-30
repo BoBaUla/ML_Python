@@ -20,7 +20,7 @@ config = SimConfig(
     stopLossFactor=0.05,
     maxStrategyRange=13)
     
-strategies = initStrategies(config.maxStrategyRange)
+strategies = initLimitStrategies(config.maxStrategyRange)
 mapper = StrategyMapper(config.maxStrategyRange)
 
 walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)

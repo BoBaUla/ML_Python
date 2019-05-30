@@ -16,7 +16,7 @@ config = SimConfig(
 
 simulations = 5
 
-strategies = initStrategies(config.maxStrategyRange)
+strategies = initLimitStrategies(config.maxStrategyRange)
 evaluations = len(strategies) * simulations
 print( str(evaluations)+ '\t evaluations')
 

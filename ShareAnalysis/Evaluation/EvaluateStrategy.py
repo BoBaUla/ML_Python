@@ -50,7 +50,7 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
         print('strat:', np.round(t,2), 's', sep = '\t')
     return results
 
-def initStrategies(maxStrategyRange):
+def initLimitStrategies(maxStrategyRange):
     strategies = []
     mapper = StrategyMapper(maxStrategyRange)
     for sellAtFactor in range(maxStrategyRange):

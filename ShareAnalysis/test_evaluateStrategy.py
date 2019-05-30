@@ -129,7 +129,7 @@ class TestInitStrategies(object):
         maxRange = 3
         expectedResult =[4,5,7,8]
         
-        result = initStrategies(maxRange)
+        result = initLimitStrategies(maxRange)
 
         assert expectedResult == result
     
