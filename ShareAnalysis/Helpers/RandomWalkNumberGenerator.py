@@ -4,11 +4,14 @@ import matplotlib.pyplot as plt
 
 class RandomWalker:
 
-    def __init__(self, start, mu=0, sigma=1, maxStep = 0.1):
+    def __init__(self, start, mu=0, sigma=1, maxStep = 0):
         self.Start = start
         self.Mean = mu
         self.Std = sigma
-        self.MaxStep = maxStep
+        if maxStep is 0:
+            self.MaxStep = 3 * sigma + mu
+        else:
+            self.MaxStep = maxStep
 
     def dice1(self):
         return rand.randint(40,60)
@@ -48,5 +51,6 @@ class RandomWalker:
         plt.plot(walk)
         plt.show()
         
-# walker = RandomWalker(1)
+# walker = RandomWalker(10)
+# print(len(walker.calcWalk(1)))
 # walker.plotNewWalk(10000)
