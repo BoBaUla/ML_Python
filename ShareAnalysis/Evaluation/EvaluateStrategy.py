@@ -31,7 +31,11 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
     mapper = StrategyMapper(config.maxStrategyRange)
     results = []
     t0 =  time.time()
+    durationFactor = np.sqrt(len(strategies))
+    printed = False
+    count = 0
     for strat in strategies:
+        count = count + 1
         gainArray = []
         stopLoss, sellAt = mapper.mapNumberToStrategy(strat)
         config.stopLossFactor = stopLoss / 100
@@ -47,7 +51,11 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
             gainArray.append(gain)
         results.append(StratResult(gainArray, np.mean(gainArray), strat))
         t =  time.time() - t0
-        print('strat:', np.round(t,2), 's', sep = '\t')
+        if not printed:
+            print('estimated duration:', (durationFactor -1)* t * 10, 's', sep = '\t')
+            printed = True
+        print('strat:', count, 'from', len(strategies), 'duration', np.round(t,2), 's', 'mean result:', results[count-1], sep = '\t')
+
     return results
 
 def initLimitStrategies(maxStrategyRange):
