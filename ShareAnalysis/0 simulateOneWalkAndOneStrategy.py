@@ -36,7 +36,7 @@ config = SimConfig(
 walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
 data = walker.calcWalk(config.dataPoints)
 
-startPreparedData = preEvaluateData(data, startIntervallEvaluation, config.stepss)
+startPreparedData = preEvaluateData(data, startIntervallEvaluation, config.steps)
 startResults = performStrategy(config, startPreparedData)
 
 endPreparedData =   preEvaluateData(data, config.steps, endIntervallEvaluation)
