@@ -43,10 +43,10 @@ def plotResults(plt, description, data, results, logging = True):
     if logging:
         print(description, results[0], sep= '\t')
 
-def plotData(plt, description, data, subdata = [], subdataColor='g-' , logging = True):
+def plotData(plt, description, data, subdata = [], subdataColor='g-'):
     plt.plot(data, 'k-')
     if len(description) >0:
         plt.set_title(description)
-
+        
     if len(subdata) > 0:
         plt.plot(subdata[0], subdata[1], subdataColor, label = 'subset')
