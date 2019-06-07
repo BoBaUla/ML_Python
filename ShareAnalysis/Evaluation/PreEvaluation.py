@@ -29,7 +29,7 @@ def preEvaluateData(data, evaluation, steps = 1):
     lastIndex = calcLastIndex(data, steps)
     for i in range(lastIndex + 1):    # +1 weil die range von 0 bis lastIndex-1 geht
         subset = getSubset(data, i, steps)
-        buy = evaluation(subset, steps)
+        buy = evaluation(subset)
         nextValue = getNextValue(i, steps, data)
         evaluatedData.append(EvaluatedData(subset,buy, nextValue))
     return evaluatedData
