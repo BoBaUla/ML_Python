@@ -1,13 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "ShareAnalysis"
-		},
-		{
+			"name": "Demofiles",
 			"path": "Demofiles"
 		},
 		{
+			"name": "MarketModel",
 			"path": "MarketModel"
+		},
+		{
+			"name": "Project",
+			"path": "Project"
 		}
 	],
 	"settings": {}
