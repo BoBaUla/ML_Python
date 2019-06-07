@@ -2,37 +2,37 @@ from Helpers.WeightsHelper import ExpectedValue
 from Helpers.mathHelper import linearInterpolation, squareInterpolation
 import numpy as np 
 
-def getLastValue(subset, steps):
-    return subset[steps - 1]
+def getLastValue(subset):
+    return subset[len(subset) - 1]
 
-def evaluateByFallingSituation(subset, steps):
-    return ExpectedValue(subset,1) > getLastValue(subset, steps)
+def evaluateByFallingSituation(subset):
+    return ExpectedValue(subset,1) > getLastValue(subset)
 
-def evaluateByRisingSituation(subset, steps):
-    return ExpectedValue(subset,1) < getLastValue(subset, steps)
+def evaluateByRisingSituation(subset):
+    return ExpectedValue(subset,1) < getLastValue(subset)
 
-def endIntervallEvaluation(subset, steps = 1):
-    return subset[0] < getLastValue(subset, steps)
+def endIntervallEvaluation(subset):
+    return subset[0] < getLastValue(subset)
 
-def startIntervallEvaluation(subset, steps = 1):
-    return subset[0] > getLastValue(subset, steps)
+def startIntervallEvaluation(subset):
+    return subset[0] > getLastValue(subset)
 
-def linearInterpolationRisingEvaluation(subset, steps = 1):
+def linearInterpolationRisingEvaluation(subset):
     return linearInterpolation(subset)[0] > 0
 
-def linearInterpolationFallingEvaluation(subset, steps = 1):
+def linearInterpolationFallingEvaluation(subset):
     return linearInterpolation(subset)[0] < 0
 
-def squareInterpolation_HasMinimumEvaluation(subset, steps = 1):
+def squareInterpolation_HasMinimumEvaluation(subset):
     return squareInterpolation(subset)[0] > 0
 
-def squareInterpolation_HasMaximumEvaluation(subset, steps = 1):
+def squareInterpolation_HasMaximumEvaluation(subset):
     return squareInterpolation(subset)[0] < 0
 
 memory = [0]
 def buyAtLocalMinimum_Evaluation(subset, steps = 1):
     minValue = min(subset)
-    lastValue = getLastValue(subset, steps)
+    lastValue = getLastValue(subset)
     memory.append(lastValue)
     if len(memory) < steps:
         for step in range(steps-1):
