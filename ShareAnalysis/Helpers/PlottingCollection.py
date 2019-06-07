@@ -43,8 +43,8 @@ def plotResults(plt, description, data, results, logging = True):
     if logging:
         print(description, results[0], sep= '\t')
 
-def plotData(plt, description, data, subdata = [], subdataColor='g-'):
-    plt.plot(data, 'k-')
+def plotData(plt, description, data, subdata = [], dataColor = 'k-', subdataColor='g-'):
+    plt.plot(data, dataColor)
     if len(description) >0:
         plt.set_title(description)
         
