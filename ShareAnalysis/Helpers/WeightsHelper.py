@@ -29,5 +29,6 @@ def generateWeights(data, spread = 0):
     return disjunctElements, prop
 
 def ExpectedValue(data, spread = 0):
+    """Spread bezeichnet in diesem zusammenhang die Anzahl der Stellen auf die Gerundet werden soll. 0 = keine Rundung"""
     disjunctElements, prob = generateWeights(data, spread)
     return average(disjunctElements, weights=prob)
