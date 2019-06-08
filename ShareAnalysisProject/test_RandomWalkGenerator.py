@@ -1,4 +1,4 @@
-import generator_randomwalk as rw
+import  ShareAnalysisScipts.generator_randomwalk as rw
 # pytest test_RandomWalkGenerator.py
 
 

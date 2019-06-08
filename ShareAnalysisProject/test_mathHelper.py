@@ -1,4 +1,4 @@
-import helper_Math as mh
+import  ShareAnalysisScipts.helper_Math as mh
 import numpy as np
 
 def test_returnInLn_Equal0():

@@ -1,4 +1,4 @@
-import eva_PreEvaluation_Script as pe
+import  ShareAnalysisScipts.eva_PreEvaluation_Script as pe
 # pytest test_PreEvaluation.py
 
 def evaluationMockMethodTrue(arg1):

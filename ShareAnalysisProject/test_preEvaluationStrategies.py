@@ -1,4 +1,4 @@
-from eva_PreEvaluationStrategies import  buyAtLocalMinimum_Evaluation
+from  ShareAnalysisScipts.eva_PreEvaluationStrategies import  buyAtLocalMinimum_Evaluation
 # pytest test_PreEvaluationStrategies.py
 
 

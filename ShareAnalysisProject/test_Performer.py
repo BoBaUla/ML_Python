@@ -1,6 +1,6 @@
-import eva_Performer as performer
-from eva_Data_Types import EvaluatedData
-from config_Type import SimConfig
+import ShareAnalysisScipts.eva_Performer as performer
+from  ShareAnalysisScipts.eva_Data_Types import EvaluatedData
+from  ShareAnalysisScipts.config_Type import SimConfig
 
 # pytest test_Performer.py
 

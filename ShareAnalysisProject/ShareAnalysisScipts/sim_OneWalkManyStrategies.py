@@ -1,16 +1,16 @@
 import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
-import helper_Math as mh 
-import helper_Weights as wh 
-import generator_randomwalk as rw 
-import plot_ScriptCollection as pc 
+import ShareAnalysisScipts.helper_Math as mh 
+import ShareAnalysisScipts.helper_Weights as wh 
+import ShareAnalysisScipts.generator_randomwalk as rw 
+import ShareAnalysisScipts.plot_ScriptCollection as pc 
 
-from config_Type import SimConfig
-from eva_PreEvaluationStrategies import *
-from eva_Performer import performStrategy
-from eva_PreEvaluation_Script import preEvaluateData
-from eva_Data_Mapper import StrategyMapper
-from eva_Script import *
+from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.eva_PreEvaluationStrategies import *
+from ShareAnalysisScipts.eva_Performer import performStrategy
+from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
+from ShareAnalysisScipts.eva_Data_Mapper import StrategyMapper
+from ShareAnalysisScipts.eva_Script import *
 
 
 gainArray = []

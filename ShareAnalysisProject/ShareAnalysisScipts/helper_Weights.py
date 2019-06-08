@@ -1,4 +1,4 @@
-import helper_Math as mh 
+import ShareAnalysisScipts.helper_Math as mh 
 from numpy import average
 
 def getAllDisjunctElements(data, spread = 0):

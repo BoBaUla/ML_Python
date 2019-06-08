@@ -1,5 +1,5 @@
-from helper_Weights import ExpectedValue
-from helper_Math import linearInterpolation, squareInterpolation
+from ShareAnalysisScipts.helper_Weights import ExpectedValue
+from ShareAnalysisScipts.helper_Math import linearInterpolation, squareInterpolation
 import numpy as np 
 
 def getLastValue(subset):

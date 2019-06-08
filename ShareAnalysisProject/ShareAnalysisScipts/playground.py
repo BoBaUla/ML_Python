@@ -1,7 +1,7 @@
-from generator_randomwalk import RandomWalker as RW
-from plot_ScriptCollection import plotData
-from helper_Math import returnFromDataRelativ as relativeGrowth
-from eva_PreEvaluation_Script import getSubset
+from ShareAnalysisScipts.generator_randomwalk import RandomWalker as RW
+from ShareAnalysisScipts.plot_ScriptCollection import plotData
+from ShareAnalysisScipts.helper_Math import returnFromDataRelativ as relativeGrowth
+from ShareAnalysisScipts.eva_PreEvaluation_Script import getSubset
 import matplotlib.pyplot as plt
 import numpy as np 
 

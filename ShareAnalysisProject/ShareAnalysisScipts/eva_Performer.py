@@ -1,5 +1,5 @@
 import numpy as np 
-from config_Type import SimConfig
+from ShareAnalysisScipts.config_Type import SimConfig
 
 def sellStrategy(price, sellAt, stopLoss):
     return (price > sellAt or price <= stopLoss)

@@ -1,9 +1,9 @@
-from config_Type import SimConfig
-from eva_Data_Mapper import StrategyMapper
-from eva_Data_Types import StratResult
-from eva_Performer import performStrategy as performer
-from eva_PreEvaluation_Script import preEvaluateData
-from generator_randomwalk import RandomWalker as walker
+from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.eva_Data_Mapper import StrategyMapper
+from ShareAnalysisScipts.eva_Data_Types import StratResult
+from ShareAnalysisScipts.eva_Performer import performStrategy as performer
+from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
+from ShareAnalysisScipts.generator_randomwalk import RandomWalker as walker
 import time 
 import numpy as np
 

@@ -1,8 +1,8 @@
-from eva_Data_Mapper import *
-from eva_Data_Types import EvaluatedData
-from eva_Script import *
-from generator_randomwalk import RandomWalker as rw
-from config_Type import SimConfig
+from ShareAnalysisScipts.eva_Data_Mapper import *
+from ShareAnalysisScipts.eva_Data_Types import EvaluatedData
+from ShareAnalysisScipts.eva_Script import *
+from ShareAnalysisScipts.generator_randomwalk import RandomWalker as rw
+from ShareAnalysisScipts.config_Type import SimConfig
 import pytest
 
 # pytest test_evaluateStrategy.py

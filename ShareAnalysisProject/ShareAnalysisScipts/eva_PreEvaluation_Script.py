@@ -1,5 +1,5 @@
-from eva_Data_Types import EvaluatedData
-from eva_PreEvaluationStrategies import endIntervallEvaluation
+from ShareAnalysisScipts.eva_Data_Types import EvaluatedData
+from ShareAnalysisScipts.eva_PreEvaluationStrategies import endIntervallEvaluation
 
 def getSubset(data, i, steps):
     return data[i: i+steps]   

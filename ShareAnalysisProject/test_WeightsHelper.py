@@ -1,4 +1,4 @@
-import helper_Weights as wh
+import  ShareAnalysisScipts.helper_Weights as wh
 
 
 def test_getAllDisjunctElements_Spread0():

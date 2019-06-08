@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
-import generator_randomwalk as rw 
+import ShareAnalysisScipts.generator_randomwalk as rw 
 
-from config_Type import SimConfig
-from eva_PreEvaluation_Script import preEvaluateData
-from eva_PreEvaluationStrategies import *
-from eva_Performer import performStrategy
-from plot_ScriptCollection import plotResults, plotData
+from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
+from ShareAnalysisScipts.eva_PreEvaluationStrategies import *
+from ShareAnalysisScipts.eva_Performer import performStrategy
+from ShareAnalysisScipts.plot_ScriptCollection import plotResults, plotData
 
 def stdBordersForData(data):
     meanData = []
