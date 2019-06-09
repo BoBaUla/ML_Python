@@ -30,7 +30,7 @@ def squareInterpolation_HasMaximumEvaluation(subset):
     return squareInterpolation(subset)[0] < 0
 
 memory = [0]
-def buyAtLocalMinimum_Evaluation(subset, steps = 1):
+def buyAtLocalMinimum_Evaluation(subset):
     minValue = min(subset)
     lastValue = getLastValue(subset)
     memory.append(lastValue)
