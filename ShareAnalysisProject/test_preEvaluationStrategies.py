@@ -3,8 +3,7 @@ from  ShareAnalysisScipts.eva_PreEvaluationStrategies import  buyAtLocalMinimum_
 
 
 class TestBuyAtLocalMinimum(object):
-    
-    
+      
     def test_getNextValueAtFirstStep_ReturnsFalse(self):
         data = [5,6,5,5,4,5,5,5,5,4,0,5,6,5,7,5,4,5,5,5,5]
         
