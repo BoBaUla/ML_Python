@@ -43,10 +43,11 @@ def plotResults(plt, description, data, results, logging = True):
     if logging:
         print(description, results[0], sep= '\t')
 
-def plotData(plt, description, data, subdata = [], dataColor = 'k-', subdataColor='g-'):
+def plotData(plt, data, title = '', description = '', subdata = [], dataColor = 'k-', subdataColor='g-'):
     plt.plot(data, dataColor)
-    if len(description) >0:
-        plt.set_title(description)
+    if len(title) >0:
+        plt.set_title(title)
         
     if len(subdata) > 0:
-        plt.plot(subdata[0], subdata[1], subdataColor, label = 'subset')
+        plt.plot(subdata[0], subdata[1], subdataColor, label = description)
+        plt.legend()
