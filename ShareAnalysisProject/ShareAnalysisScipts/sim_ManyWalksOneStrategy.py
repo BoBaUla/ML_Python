@@ -4,30 +4,19 @@ import ShareAnalysisScipts.plot_ScriptCollection as pc
 import ShareAnalysisScipts.helper_Math as mh 
 import ShareAnalysisScipts.helper_Weights as wh 
 import ShareAnalysisScipts.generator_randomwalk as rw 
-from ShareAnalysisScipts.sconfig_Type import SimConfig
 
-from eva_Performer import performStrategy
+from ShareAnalysisScipts.eva_Performer import performStrategy
 
-from eva_PreEvaluation_Script import preEvaluateData
-from eva_PreEvaluationStrategies import endIntervallEvaluation as evaluation
+from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 
-def Run():
+def Run(config, simulations, evaluationStrategy):
     gainArray = []
-    config = SimConfig(
-        sellAtFactor=0.05, 
-        stopLossFactor=0.05, 
-        mu = np.random.randint(-100,100)/100,
-        sigma = np.random.randint(0.1,2))
-
-    simulations = 100
-
-
+  
     for i in range(simulations):
         walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
         data = walker.calcWalk(config.dataPoints)
-        preparedData = preEvaluateData(data, evaluation, config.steps)
+        preparedData = preEvaluateData(data, evaluationStrategy, config.steps)
         gainArray.append(performStrategy(config, preparedData)[0])
-
 
     avg = np.mean(gainArray)
     std = np.std(gainArray)
@@ -40,4 +29,3 @@ def Run():
     plt.grid()
     plt.show()
 
-Run()
