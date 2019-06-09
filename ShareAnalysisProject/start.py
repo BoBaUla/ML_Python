@@ -1,7 +1,7 @@
 from ShareAnalysisScipts.config_Type import SimConfig
 import ShareAnalysisScipts.eva_PreEvaluationStrategies as strategy
 import numpy as np
-from ShareAnalysisScipts import sim_ManyWalksOneStrategy, sim_OneWalkManyStrategies, sim_OneWalkOneBuyStrategy, sim_OneWalkDifferentBuyingStrategies
+from ShareAnalysisScipts import  sim_OneWalkManySellingStrategies, sim_OneWalkOneBuyStrategy, sim_OneWalkDifferentBuyingStrategies, sim_ManyWalksOneSellingStrategy
 
 config = SimConfig(
     invest =10000,
@@ -16,7 +16,7 @@ config = SimConfig(
     steps = 50
 )
 
-#sim_ManyWalksOneStrategy.Run(config, 100, strategy.buyAtLocalMinimum_Evaluation)
-#sim_OneWalkManyStrategies.Run(config, strategy.buyAtLocalMinimum_Evaluation)
-#sim_OneWalkOneBuyStrategy.Run(config, [strategy.buyAtLocalMinimumWithReset_Evaluation, strategy.buyAtLocalMinimum_Evaluation])
-#sim_OneWalkDifferentBuyingStrategies.Run(config)
+sim_ManyWalksOneSellingStrategy.Run(config = config, simulations = 100, evaluationStrategy = strategy.buyAtLocalMinimum_Evaluation)
+#sim_OneWalkManySellingStrategies.Run(config = config, evaluationStrategy = strategy.buyAtLocalMinimum_Evaluation)
+#sim_OneWalkOneBuyStrategy.Run(config = config, evaluationStrategies = [strategy.buyAtLocalMinimumWithReset_Evaluation, strategy.buyAtLocalMinimum_Evaluation])
+#sim_OneWalkDifferentBuyingStrategies.Run(config = config)
