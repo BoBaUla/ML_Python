@@ -1,5 +1,4 @@
 from ShareAnalysisScipts.eva_Data_Types import EvaluatedData
-from ShareAnalysisScipts.eva_PreEvaluationStrategies import endIntervallEvaluation
 
 def getSubset(data, i, steps):
     return data[i: i+steps]   
@@ -17,7 +16,7 @@ def getNextValue(currentIndex, steps, data):
     else:
         return 0
 
-def preEvaluateData(data, evaluation = endIntervallEvaluation, steps = 1):
+def preEvaluateData(data, evaluation, steps = 1):
     # print('preEvaluateData')
     if steps == 0:
         return []
