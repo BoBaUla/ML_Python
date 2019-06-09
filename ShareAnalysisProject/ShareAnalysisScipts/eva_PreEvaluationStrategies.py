@@ -1,5 +1,6 @@
 from ShareAnalysisScipts.helper_Weights import ExpectedValue
 from ShareAnalysisScipts.helper_Math import linearInterpolation, squareInterpolation
+import ShareAnalysisScipts.eva_Memory as mem
 import numpy as np 
 
 def getLastValue(subset):
@@ -29,16 +30,31 @@ def squareInterpolation_HasMinimumEvaluation(subset):
 def squareInterpolation_HasMaximumEvaluation(subset):
     return squareInterpolation(subset)[0] < 0
 
-memory = [0]
 def buyAtLocalMinimum_Evaluation(subset):
     minValue = min(subset)
-    lastValue = getLastValue(subset)
-    memory.append(lastValue)
-    if len(memory) < steps:
-        for step in range(steps-1):
-            memory.append(subset[step])
+    lastValue = getLastValue(subset)    
     
-    meanMemory = np.mean(memory)
-    stdMemory = np.std(memory)
-    return lastValue == minValue and (lastValue < meanMemory - stdMemory)
+    mem.setMemory(lastValue)
+    
+    meanMemory = np.mean(mem.memory)
+    stdMemory = np.std(mem.memory)
+    result = lastValue == minValue and (lastValue < meanMemory - stdMemory)
+    
+    return result
+
+def buyAtLocalMinimumWithReset_Evaluation(subset):
+    minValue = min(subset)
+    steps = len(subset)
+    lastValue = getLastValue(subset)
+    
+    if len(mem.memory) >= steps *3:
+        mem.resetMemory()
+
+    mem.setMemory(lastValue)
+    
+    meanMemory = np.mean(mem.memory)
+    stdMemory = np.std(mem.memory)
+    result = lastValue == minValue and (lastValue < meanMemory - stdMemory)
+    
+    return result
 
