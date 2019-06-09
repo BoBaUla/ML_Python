@@ -7,39 +7,42 @@ from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 from ShareAnalysisScipts.eva_PreEvaluationStrategies import *
 from ShareAnalysisScipts.eva_Performer import performStrategy
 from ShareAnalysisScipts.plot_ScriptCollection import plotResults, plotData
+import ShareAnalysisScipts.eva_Memory as mem
 
-def stdBordersForData(data):
+def adjustToDataLengthWithRespectToSteps(steps, dataToAdjust):
+    for i in range(steps-1):
+        dataToAdjust.insert(0, dataToAdjust[0])
+
+def stdBordersForData(data, steps):
     meanData = []
     upperStd = []
-    underStd = []
-    for i in range(len(data)-1):
-        subdata = data[0:i]
-        mean = np.mean(subdata)
-        meanData.append(mean)
-        upperStd.append(mean + np.std(subdata))
-        underStd.append(mean - np.std(subdata))
-    return meanData, upperStd, underStd
+    lowerStd = []
+    
+    for i in range(len(data)-steps):
+        meanData.append(mem.meanMemory[i])
+        upperStd.append(mem.meanMemory[i] + mem.stdMemory[i])
+        lowerStd.append(mem.meanMemory[i] - mem.stdMemory[i])
+    adjustToDataLengthWithRespectToSteps(steps, meanData)
+    adjustToDataLengthWithRespectToSteps(steps, upperStd)
+    adjustToDataLengthWithRespectToSteps(steps, lowerStd)
+    return meanData, upperStd, lowerStd
 
-config = SimConfig(
-    sellAtFactor=0.04, 
-    stopLossFactor=0.06, 
-    steps= 50,
-    mu = np.random.randint(-100,100)/100,
-    sigma =5)
+def Run(config, evaluationStrategies):
 
-walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
-data = walker.calcWalk(config.dataPoints)
+    walker = rw.RandomWalker(config.init, config.mu, config.sigma)
+    data = walker.calcWalk(config.dataPoints)
+    fig, axs = plt.subplots(len(evaluationStrategies))
 
-localMinEvaluatedData =  preEvaluateData(data, buyAtLocalMinimum_Evaluation, config.steps)
-localMinResults = performStrategy(config, localMinEvaluatedData)
+    for i in range(len(evaluationStrategies)):
+        localEvaluatedData =  preEvaluateData(data, evaluationStrategies[i], config.steps)
+        localResults = performStrategy(config, localEvaluatedData)
 
-meanData, upperSigma, lowerSigma = stdBordersForData(data)
+        meanData, upperSigma, lowerSigma = stdBordersForData(data, config.steps)      
 
-fig, axs = plt.subplots(2)
-
-plotResults(axs[0],'localMinEvaluatedData', data, localMinResults)
-plotData(axs[0],'localMinEvaluatedData', data, [range(len(data)-1),meanData], subdataColor='r--')
-plotData(axs[0],'localMinEvaluatedData', data, [range(len(data)-1),upperSigma], subdataColor='g.')
-plotData(axs[0],'localMinEvaluatedData', data, [range(len(data)-1),lowerSigma], subdataColor='g.')
-plt.show()
+        plotResults(axs[i],evaluationStrategies[i].__name__ , data, localResults)
+        plotData(axs[i], data, description = 'mu', subdata = [range(len(data)-1),meanData], subdataColor='r--')
+        plotData(axs[i], data, description = 'mu + sigma', subdata = [range(len(data)-1),upperSigma], subdataColor='y.')
+        plotData(axs[i], data, description = 'mu - sigma', subdata = [range(len(data)-1),lowerSigma], subdataColor='y.')
+        mem.resetAll()
+    plt.show()
 
