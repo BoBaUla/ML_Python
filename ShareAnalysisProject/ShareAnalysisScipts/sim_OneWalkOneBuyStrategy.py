@@ -4,7 +4,6 @@ import ShareAnalysisScipts.generator_randomwalk as rw
 
 from ShareAnalysisScipts.config_Type import SimConfig
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
-from ShareAnalysisScipts.eva_PreEvaluationStrategies import *
 from ShareAnalysisScipts.eva_Performer import performStrategy
 from ShareAnalysisScipts.plot_ScriptCollection import plotResults, plotData
 import ShareAnalysisScipts.eva_Memory as mem
