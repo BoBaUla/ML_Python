@@ -38,7 +38,7 @@ def buyAtLocalMinimum_Evaluation(subset):
     
     meanMemory = np.mean(mem.memory)
     stdMemory = np.std(mem.memory)
-    result = lastValue == minValue and (lastValue < meanMemory - stdMemory)
+    result = lastValue == minValue and (lastValue <= meanMemory - stdMemory)
     
     return result
 
@@ -57,4 +57,6 @@ def buyAtLocalMinimumWithReset_Evaluation(subset):
     result = lastValue == minValue and (lastValue < meanMemory - stdMemory)
     
     return result
+
+
 
