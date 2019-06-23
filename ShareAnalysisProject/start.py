@@ -16,7 +16,7 @@ config = SimConfig(
     steps = 50
 )
 
-sim_ManyWalksOneSellingStrategy.Run(config = config, simulations = 100, evaluationStrategy = strategy.buyAtLocalMinimum_Evaluation)
-#sim_OneWalkManySellingStrategies.Run(config = config, evaluationStrategy = strategy.buyAtLocalMinimum_Evaluation)
+#sim_ManyWalksOneSellingStrategy.Run(config = config, simulations = 100, evaluationStrategy = strategy.buyAtLocalMinimum_Evaluation)
+sim_OneWalkManySellingStrategies.Run(config = config, evaluationStrategy = strategy.buyAtLocalMinimum_Evaluation) # Hier stimmt noch was nicht
 #sim_OneWalkOneBuyStrategy.Run(config = config, evaluationStrategies = [strategy.buyAtLocalMinimumWithReset_Evaluation, strategy.buyAtLocalMinimum_Evaluation])
 #sim_OneWalkDifferentBuyingStrategies.Run(config = config)

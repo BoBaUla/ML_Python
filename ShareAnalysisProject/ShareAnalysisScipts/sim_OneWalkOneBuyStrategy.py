@@ -29,6 +29,15 @@ def stdBordersForData(data, steps):
 def Run(config, evaluationStrategies):
 
     walker = rw.RandomWalker(config.init, config.mu, config.sigma)
+    print('Config:', 
+        'Invest\t' + str(config.invest),
+        'Fee\t' + str(config.fee),
+        'Mu\t' + str(config.mu),
+        'Sigma\t'+ str(config.sigma),
+        'SellAt\t'+ str(config.sellAtFactor),
+        'StoppL\t'+ str(config.stopLossFactor),
+        'Steps'+ str(config.steps),
+        sep = '\n')
     data = walker.calcWalk(config.dataPoints)
     fig, axs = plt.subplots(len(evaluationStrategies))
 
@@ -40,8 +49,8 @@ def Run(config, evaluationStrategies):
 
         plotResults(axs[i],evaluationStrategies[i].__name__ , data, localResults)
         plotData(axs[i], data, description = 'mu', subdata = [range(len(data)-1),meanData], subdataColor='r--')
-        plotData(axs[i], data, description = 'mu + sigma', subdata = [range(len(data)-1),upperSigma], subdataColor='y.')
-        plotData(axs[i], data, description = 'mu - sigma', subdata = [range(len(data)-1),lowerSigma], subdataColor='y.')
+        plotData(axs[i], data, description = 'mu + sigma', subdata = [range(len(data)-1),upperSigma], subdataColor='y-')
+        plotData(axs[i], data, description = 'mu - sigma', subdata = [range(len(data)-1),lowerSigma], subdataColor='y-')
         mem.resetAll()
     plt.show()
 

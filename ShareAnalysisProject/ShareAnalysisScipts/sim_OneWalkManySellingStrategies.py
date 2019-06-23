@@ -45,10 +45,10 @@ def Run(config, evaluationStrategy):
 
     print('WSK: ' + str(p0 * 100),'Ctl: ' + str(p1*100) ,'AVG: ' + str(avg),'MID: ' +str(mid),'STD: ' + str(std), sep = '\n')
     
-    pc.plotData(axs[0][0], 'data', data)
+    pc.plotData(axs[0][0], data, 'data')
     axs[0][0].grid()
 
-    pc.plotData(axs[1][0], 'strat results',gainArray)
+    pc.plotData(axs[1][0],gainArray, 'strat results')
     axs[1][0].grid()
 
     pc.plotHist(goodStrategies[0], axs[1][1], 1,  color = 'green', title='positive strats')
