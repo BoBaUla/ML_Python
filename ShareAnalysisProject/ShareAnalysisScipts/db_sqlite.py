@@ -79,11 +79,12 @@ def create_table_command(table_name, fields):
     cmd = 'CREATE TABLE IF NOT EXISTS ' + table_name + ' ( ' + ''.join( ' {} '.format(i) for i in fields) + ' );'
     return cmd
 
-# cwd = os.getcwd()
-# dbname = 'data.db'
-# conn = create_connection(os.path.join(cwd, dbname))
-# create_table(conn, create_table_command(table_configuration_name, fields_configuration))
-# create_table(conn, create_table_command(table_datensatz_name, fields_datensatz))
-# create_table(conn, create_table_command(table_evaluation_name, fields_evaluation))
-# create_table(conn, create_table_command(table_results_name, field_results))
-# create_table(conn, create_table_command(table_cross_name, field_cross))
+def init_db():
+    cwd = os.getcwd()
+    dbname = 'data.db'
+    conn = create_connection(os.path.join(cwd, dbname))
+    create_table(conn, create_table_command(table_configuration_name, fields_configuration))
+    create_table(conn, create_table_command(table_datensatz_name, fields_datensatz))
+    create_table(conn, create_table_command(table_evaluation_name, fields_evaluation))
+    create_table(conn, create_table_command(table_results_name, field_results))
+    create_table(conn, create_table_command(table_cross_name, field_cross))
