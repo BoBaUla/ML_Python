@@ -32,4 +32,18 @@ class SimConfig(object):
     def ConfigID(self):
         
         val = (str(self.dataPoints)+str(self.invest)+str(self.fee)+str(self.init)+str(self.mu*100)+str(self.sigma*100)+str(self.sellAtFactor*100)+str(self.stopLossFactor*100)+str(self.maxGainFactor*100)+str(self.maxStrategyRange)).replace('.','')
-        return int(val)
+        return val
+    
+    def GetValues(self):
+        return (
+            self.ConfigID(), 
+            self.dataPoints,
+            self.invest,
+            self.fee, 
+            self.steps, 
+            self.maxStrategyRange, 
+            self.init, 
+            self.mu * 100,
+            self.sigma *100,
+            self.stopLossFactor *100, 
+            self.sellAtFactor * 100)
