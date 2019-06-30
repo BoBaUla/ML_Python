@@ -13,7 +13,6 @@ config = SimConfig(
     sellAtFactor = 5,
     stopLossFactor = 5,
     maxStrategyRange = 10,
-
     steps = 5
 )
 
