@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
 import ShareAnalysisScipts.generator_randomwalk as rw 
 
+from ShareAnalysisScipts.eva_Data_Types import EvaluationResult
 from ShareAnalysisScipts.config_Type import SimConfig
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 from ShareAnalysisScipts.eva_Performer import performStrategy
@@ -26,7 +27,7 @@ def stdBordersForData(data, steps):
     adjustToDataLengthWithRespectToSteps(steps, lowerStd)
     return meanData, upperStd, lowerStd
 
-def Run(config, evaluationStrategies):
+def Run(config, evaluationStrategies, save = False):
 
     walker = rw.RandomWalker(config.init, config.mu, config.sigma)
     print('Config:', 
@@ -52,5 +53,10 @@ def Run(config, evaluationStrategies):
         plotData(axs[i], data, description = 'mu + sigma', subdata = [range(len(data)-1),upperSigma], subdataColor='y-')
         plotData(axs[i], data, description = 'mu - sigma', subdata = [range(len(data)-1),lowerSigma], subdataColor='y-')
         mem.resetAll()
+
+        evaRes = EvaluationResult(data, localResults, config, evaluationStrategies[i].__name__)
+        if save:
+            evaRes.Save()
+        
     plt.show()
 
