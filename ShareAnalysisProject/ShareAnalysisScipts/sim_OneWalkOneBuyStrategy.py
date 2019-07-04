@@ -3,7 +3,6 @@ import numpy as np
 import ShareAnalysisScipts.generator_randomwalk as rw 
 
 from ShareAnalysisScipts.eva_Data_Types import EvaluationResult
-from ShareAnalysisScipts.config_Type import TradeConfig
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 from ShareAnalysisScipts.eva_Performer import performStrategy
 from ShareAnalysisScipts.plot_ScriptCollection import plotResults, plotData
@@ -30,26 +29,26 @@ def stdBordersForData(data, steps):
     adjustToDataLengthWithRespectToSteps(steps, lowerStd)
     return meanData, upperStd, lowerStd
 
-def Run(config, evaluationStrategies, save = False):
+def Run(configTrade,configWalker, evaluationStrategies, save = False):
 
-    walker = rw.RandomWalker(config.init, config.mu, config.sigma)
+    walker = rw.RandomWalker(configWalker)
     print('Config:', 
-        'Invest\t' + str(config.invest),
-        'Fee\t' + str(config.fee),
-        'Mu\t' + str(config.mu),
-        'Sigma\t'+ str(config.sigma),
-        'SellAt\t'+ str(config.sellAtFactor),
-        'StoppL\t'+ str(config.stopLossFactor),
-        'Steps'+ str(config.steps),
+        'Invest\t' + str(configTrade.invest),
+        'Fee\t' + str(configTrade.fee),
+        'Mu\t' + str(configWalker.mu),
+        'Sigma\t'+ str(configWalker.sigma),
+        'SellAt\t'+ str(configTrade.sellAtFactor),
+        'StoppL\t'+ str(configTrade.stopLossFactor),
+        'Steps'+ str(configTrade.steps),
         sep = '\n')
-    data = walker.calcWalk(config.dataPoints)
+    data = walker.calcWalk()
     fig, axs = plt.subplots(len(evaluationStrategies))
 
     for i in range(len(evaluationStrategies)):
-        localEvaluatedData =  preEvaluateData(data, evaluationStrategies[i], config.steps)
-        localResults = performStrategy(config, localEvaluatedData)
+        localEvaluatedData =  preEvaluateData(data, evaluationStrategies[i], configTrade.steps)
+        localResults = performStrategy(configTrade, localEvaluatedData)
 
-        meanData, upperSigma, lowerSigma = stdBordersForData(data, config.steps)      
+        meanData, upperSigma, lowerSigma = stdBordersForData(data, configTrade.steps)      
 
         plotResults(axs[i],evaluationStrategies[i].__name__ , data, localResults)
         if len(meanData) > 1:
@@ -59,7 +58,7 @@ def Run(config, evaluationStrategies, save = False):
             mem.resetAll()
 
         if save:
-            evaRes = EvaluationResult(data, localResults, config, evaluationStrategies[i].__name__)
+            evaRes = EvaluationResult(data, localResults, configTrade, evaluationStrategies[i].__name__)
             evaRes.Save()
         
     plt.show()

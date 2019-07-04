@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
 import ShareAnalysisScipts.generator_randomwalk as rw 
 
-from ShareAnalysisScipts.config_Type import TradeConfig
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 import ShareAnalysisScipts.eva_PreEvaluationStrategies  as pes
 from ShareAnalysisScipts.eva_Performer import performStrategy
@@ -10,33 +9,33 @@ from ShareAnalysisScipts.plot_ScriptCollection import plotResults
 
 
 
-def Run(config):
-    walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
-    data = walker.calcWalk(config.dataPoints)
+def Run(configTrade,configWalker):
+    walker = rw.RandomWalker(configWalker)
+    data = walker.calcWalk()
 
-    startPreparedData = preEvaluateData(data, pes.startIntervallEvaluation, config.steps)
-    startResults = performStrategy(config, startPreparedData)
+    startPreparedData = preEvaluateData(data, pes.startIntervallEvaluation, configTrade.steps)
+    startResults = performStrategy(configTrade, startPreparedData)
 
-    endPreparedData =   preEvaluateData(data, pes.endIntervallEvaluation, config.steps)
-    endResults = performStrategy(config, endPreparedData)
+    endPreparedData =   preEvaluateData(data, pes.endIntervallEvaluation, configTrade.steps)
+    endResults = performStrategy(configTrade, endPreparedData)
 
-    fallingPreparedData =   preEvaluateData(data, pes.evaluateByFallingSituation, config.steps)
-    fallingResults = performStrategy(config, fallingPreparedData)
+    fallingPreparedData =   preEvaluateData(data, pes.evaluateByFallingSituation, configTrade.steps)
+    fallingResults = performStrategy(configTrade, fallingPreparedData)
 
-    risingPreparedData =   preEvaluateData(data, pes.evaluateByRisingSituation, config.steps)
-    risingResults = performStrategy(config, risingPreparedData)
+    risingPreparedData =   preEvaluateData(data, pes.evaluateByRisingSituation, configTrade.steps)
+    risingResults = performStrategy(configTrade, risingPreparedData)
 
-    linearRisingPrepareData =  preEvaluateData(data, pes.linearInterpolationRisingEvaluation, config.steps)
-    linearRisingResults = performStrategy(config, linearRisingPrepareData)
+    linearRisingPrepareData =  preEvaluateData(data, pes.linearInterpolationRisingEvaluation, configTrade.steps)
+    linearRisingResults = performStrategy(configTrade, linearRisingPrepareData)
 
-    linearFallingPrepareData =  preEvaluateData(data, pes.linearInterpolationFallingEvaluation, config.steps)
-    linearFallingResults = performStrategy(config, linearFallingPrepareData)
+    linearFallingPrepareData =  preEvaluateData(data, pes.linearInterpolationFallingEvaluation, configTrade.steps)
+    linearFallingResults = performStrategy(configTrade, linearFallingPrepareData)
 
-    squareMinPrepareData =  preEvaluateData(data, pes.squareInterpolation_HasMinimumEvaluation, config.steps)
-    squareMinResults = performStrategy(config, squareMinPrepareData)
+    squareMinPrepareData =  preEvaluateData(data, pes.squareInterpolation_HasMinimumEvaluation, configTrade.steps)
+    squareMinResults = performStrategy(configTrade, squareMinPrepareData)
 
-    squareMaxPrepareData =  preEvaluateData(data, pes.squareInterpolation_HasMaximumEvaluation, config.steps)
-    squareMaxResults = performStrategy(config, squareMaxPrepareData)
+    squareMaxPrepareData =  preEvaluateData(data, pes.squareInterpolation_HasMaximumEvaluation, configTrade.steps)
+    squareMaxResults = performStrategy(configTrade, squareMaxPrepareData)
 
     fig, axs = plt.subplots(2,4)
 

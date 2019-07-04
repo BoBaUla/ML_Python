@@ -11,17 +11,17 @@ from ShareAnalysisScipts.eva_Performer import performStrategy
 
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 
-def Run(config, simulations, evaluationStrategy, save = False):
+def Run(configTrade,configWalker, simulations, evaluationStrategy, save = False):
     gainArray = []
   
     for i in range(simulations):
-        walker = rw.RandomWalker(config.init, config.mu, config.sigma, 0.2)
-        data = walker.calcWalk(config.dataPoints)
-        preparedData = preEvaluateData(data, evaluationStrategy, config.steps)
-        res = performStrategy(config, preparedData)
+        walker = rw.RandomWalker(configWalker)
+        data = walker.calcWalk(configWalker.dataPoints)
+        preparedData = preEvaluateData(data, evaluationStrategy, configTrade.steps)
+        res = performStrategy(configTrade, preparedData)
         gainArray.append(res[0])
         if save:
-            evaRes = dat.EvaluationResult(data, res, config, evaluationStrategy.__name__)
+            evaRes = dat.EvaluationResult(data, res, configTrade, evaluationStrategy.__name__)
             evaRes.Save()
 
     avg = np.mean(gainArray)
