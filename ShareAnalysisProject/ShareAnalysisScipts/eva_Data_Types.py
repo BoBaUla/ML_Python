@@ -18,9 +18,9 @@ class StratResult:
 
 
 class EvaluationResult():
-    def __init__(self, data, result, config, algorithm):
+    def __init__(self, data_id, result, config, algorithm):
         self.algorithm = algorithm
-        self.data = json.dumps(data)
+        self.data_id = data_id
         self.gain = result[0]
         if len(result[1]) > 0:
             self.buyAction = json.dumps((np.array(result[1])[:,0]).tolist())
@@ -36,9 +36,8 @@ class EvaluationResult():
         sql.init_db()
         method_id   = sql.insert_method( (self.algorithm))
         config_id   = sql.insert_config(self.config)
-        data_id     = sql.insert_data(self.data, config_id)
         result_id   = sql.insert_result((self.gain, self.buyAction, self.sellAction))
-        sql.insert_cross(method_id, data_id, result_id)
+        sql.insert_cross(method_id, self.data_id, result_id)
 
     
         

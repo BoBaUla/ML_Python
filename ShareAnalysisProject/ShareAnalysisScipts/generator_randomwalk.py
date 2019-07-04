@@ -1,6 +1,8 @@
 import numpy as np
 import numpy.random as rand
 import matplotlib.pyplot as plt
+import json
+import ShareAnalysisScipts.db_sqlite as sql
 
 class RandomWalker:
 
@@ -48,3 +50,7 @@ class RandomWalker:
     def plotWalk(self, walk):
         plt.plot(walk)
         plt.show()
+
+    def SaveWalk(self):
+        data = self.calcWalk()
+        return sql.insert_data(json.dumps(data), self.Mean, self.Std)

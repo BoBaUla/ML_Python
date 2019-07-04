@@ -6,8 +6,8 @@ table_datensatz_name = 'Datensatz'
 fields_datensatz = [
     'id integer PRIMARY KEY autoincrement,', 
     'mu decimal,',
-    'sigma decimal',
-    'Werte text,']
+    'sigma decimal,',
+    'Werte text']
     
 
 table_configuration_name = 'Konfiguration'
@@ -141,12 +141,12 @@ def insert_method(name):
             id = rows[0][0]
     return id
 
-def insert_data(data, config):
+def insert_data(data, mu, sigma):
     conn = create_connection(location())
     id = 0
     with conn:
         cur = conn.cursor()
-        cur.execute('insert into ' + table_datensatz_name +'(mu, sigma, Werte) values (?, ?, ?);', (config.mu, config.sigma, data))
+        cur.execute('insert into ' + table_datensatz_name +'(mu, sigma, Werte) values (?, ?, ?);', (mu, sigma, data))
         id = cur.lastrowid
     return id
 
