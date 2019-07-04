@@ -24,7 +24,6 @@ def performStrategy(config, evaluatedData, sellStrategy = sellStrategy):
 
     price = 0
     money = config.invest
-    maxGain = config.invest * (1+config.maxGainFactor)
     steps = config.steps
     fee = config.fee
     limitFactor = config.sellAtFactor
@@ -42,9 +41,7 @@ def performStrategy(config, evaluatedData, sellStrategy = sellStrategy):
         buy = dataset.performBuyAction
         price = dataset.nextValue
         index = dataNr + steps
-        if money >= maxGain:
-            break
-
+        
         if buy and enoughMoneyLeft(money, fee, price) and price > 0:
             share = buyShare(money, fee, price, share)
             money = adjustMoneyAfterBuyAction(money, fee, price, share)
