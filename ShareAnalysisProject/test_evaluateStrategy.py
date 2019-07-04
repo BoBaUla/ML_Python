@@ -2,7 +2,7 @@ from ShareAnalysisScipts.eva_Data_Mapper import *
 from ShareAnalysisScipts.eva_Data_Types import EvaluatedData
 from ShareAnalysisScipts.eva_Script import *
 from ShareAnalysisScipts.generator_randomwalk import RandomWalker as rw
-from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.config_Type import TradeConfig
 import pytest
 
 # pytest test_evaluateStrategy.py
@@ -36,7 +36,7 @@ class TestFilterStrategies(object):
     def test_filterGoodStrategies_EmptyStrategies(self):
         stratResults = []
         minResult = 5
-        config = SimConfig(invest = minResult)
+        config = TradeConfig(invest = minResult)
         expectedResult = [[],[]]
         result = filterGoodStrategies(stratResults, config.invest)
 
@@ -45,7 +45,7 @@ class TestFilterStrategies(object):
     def test_filterGoodStrategies_NoGoodStrategies(self):
         stratResults = self.setupStratResults()
         minResult = 11
-        config = SimConfig(invest = minResult)
+        config = TradeConfig(invest = minResult)
         expectedResult = [[],[]]
         result = filterGoodStrategies(stratResults, config.invest)
 
@@ -54,7 +54,7 @@ class TestFilterStrategies(object):
     def test_filterGoodStrategies_NoneEmptyStrategies(self):
         stratResults = self.setupStratResults()
         minResult = 5
-        config = SimConfig(invest = minResult)
+        config = TradeConfig(invest = minResult)
         expectedResult = [[self.stratResult.strategy], [self.stratResult.meanGain]]
         result = filterGoodStrategies(stratResults, config.invest)
 
@@ -64,7 +64,7 @@ class TestFilterStrategies(object):
     def test_filterBadStrategies_EmptyStrategies(self):
         stratResults = []
         minResult = 5
-        config = SimConfig(invest = minResult)
+        config = TradeConfig(invest = minResult)
         expectedResult = [[],[]]
         result = filterBadStrategies(stratResults, config.invest)
 
@@ -73,7 +73,7 @@ class TestFilterStrategies(object):
     def test_filterBadStrategies_NoBadStrategies(self):
         stratResults = self.setupStratResults()
         minResult = 1
-        config = SimConfig(invest = minResult)
+        config = TradeConfig(invest = minResult)
         expectedResult = [[],[]]
         result = filterBadStrategies(stratResults, config.invest)
 
@@ -82,7 +82,7 @@ class TestFilterStrategies(object):
     def test_filterBadStrategies_NoneEmptyStrategies(self):
         stratResults = self.setupStratResults()
         minResult = 50
-        config = SimConfig(invest = minResult)
+        config = TradeConfig(invest = minResult)
         expectedResult = [[self.stratResult.strategy], [self.stratResult.meanGain]]
         result = filterBadStrategies(stratResults, config.invest)
 
@@ -101,7 +101,7 @@ class TestEvaluateStrategy(object):
     def test_EvaluateStrategy_ReturnsNothingAtEmptyStrategy(self):
         strategies = []
         
-        result = EvaluateStrategy(strategies, self.simulations, SimConfig(maxStrategyRange=1), self.start, 
+        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), self.start, 
         preEvaluation = self.preEvaluateDataMock,
         performer = self.evaluateDataMock)
         assert len(strategies) == len(result)
@@ -109,7 +109,7 @@ class TestEvaluateStrategy(object):
     def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategy(self):
         strategies = [11]
 
-        result = EvaluateStrategy(strategies, self.simulations, SimConfig(maxStrategyRange=1), self.start, 
+        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), self.start, 
         preEvaluation = self.preEvaluateDataMock,
         performer = self.evaluateDataMock)
         
@@ -119,7 +119,7 @@ class TestEvaluateStrategy(object):
     def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategyMoreResults(self):
         strategies = [11,122,21]
 
-        result = EvaluateStrategy(strategies, self.simulations, SimConfig(maxStrategyRange=1), self.start, 
+        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), self.start, 
         preEvaluation = self.preEvaluateDataMock,
         performer = self.evaluateDataMock)
 

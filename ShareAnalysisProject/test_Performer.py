@@ -1,10 +1,10 @@
 import ShareAnalysisScipts.eva_Performer as performer
 from  ShareAnalysisScipts.eva_Data_Types import EvaluatedData
-from  ShareAnalysisScipts.config_Type import SimConfig
+from  ShareAnalysisScipts.config_Type import TradeConfig
 
 # pytest test_Performer.py
 
-config = SimConfig(invest=10, fee=2, steps=4, sellAtFactor=0, stopLossFactor=0)
+config = TradeConfig(invest=10, fee=2, steps=4, sellAtFactor=0, stopLossFactor=0)
 dataSet = EvaluatedData([0,0,1], True, 0)
 
 def sellMockTrue(arg1, arg2, arg3): 

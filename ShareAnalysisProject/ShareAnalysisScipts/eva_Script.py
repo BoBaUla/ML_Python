@@ -1,4 +1,4 @@
-from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.config_Type import TradeConfig
 from ShareAnalysisScipts.eva_Data_Mapper import StrategyMapper
 from ShareAnalysisScipts.eva_Data_Types import StratResult
 from ShareAnalysisScipts.eva_Performer import performStrategy as performer
