@@ -1,5 +1,5 @@
 import numpy as np 
-from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.config_Type import TradeConfig
 
 def sellStrategy(price, sellAt, stopLoss):
     return (price > sellAt or price <= stopLoss)
@@ -19,7 +19,7 @@ def getLastPrice(evaluatedData, steps):
 
 def performStrategy(config, evaluatedData, sellStrategy = sellStrategy):    
     # print('evaluateData')
-    if  not (isinstance(config, SimConfig)):
+    if  not (isinstance(config, TradeConfig)):
         return 0, [], []
 
     price = 0
