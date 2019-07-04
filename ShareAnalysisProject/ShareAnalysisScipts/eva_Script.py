@@ -7,7 +7,7 @@ from ShareAnalysisScipts.generator_randomwalk import RandomWalker as walker
 import time 
 import numpy as np
 
-def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = preEvaluateData, performer = performer):
+def EvaluateStrategy(strategies, simulations, config, randomWalker, start, preEvaluation = preEvaluateData, performer = performer):
     mapper = StrategyMapper(config.maxStrategyRange)
     results = []
     t0 =  time.time()
@@ -24,8 +24,7 @@ def EvaluateStrategy(strategies, simulations, config, start, preEvaluation = pre
         for sim in range(simulations):
             # t1 = time.thread_time()- t1
             # print('sim:', (t1), sep = '\t')
-            rw = walker(start)
-            data = rw.calcWalk(config.dataPoints)
+            data = randomWalker.calcWalk()
             preparedData = preEvaluation(data, steps = config.steps)
             gain =  performer(config, preparedData)[0]
             gainArray.append(gain)
