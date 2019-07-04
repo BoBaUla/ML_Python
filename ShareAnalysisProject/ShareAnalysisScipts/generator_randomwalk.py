@@ -9,7 +9,7 @@ class RandomWalker:
         self.Mean = configWalker.mu
         self.Std = configWalker.sigma
         self.MaxStep = 3 * configWalker.sigma + configWalker.mu
-        
+        self.dataPoints = configWalker.dataPoints
 
     def dice1(self):
         return rand.randint(40,60)
@@ -28,9 +28,9 @@ class RandomWalker:
     def getRelativeChange(self, dice3):
         return 1 + dice3(self) / 100
 
-    def calcWalk(self,steps, dice1 = dice1, dice2 = dice2, dice3 = dice3):
+    def calcWalk(self, dice1 = dice1, dice2 = dice2, dice3 = dice3):
         walk = [self.Start]
-        for i in range(steps):
+        for i in range(self.dataPoints-1):
             relativeChange = self.getRelativeChange(dice3)
             last =  walk[i] 
             if dice2(self) > dice1(self):
@@ -39,8 +39,8 @@ class RandomWalker:
                 walk.append(last / relativeChange)
         return walk
      
-    def plotNewWalk(self, steps, dice1 = dice1, dice2 = dice2, dice3 = dice3):
-        walk = self.calcWalk(steps)
+    def plotNewWalk(self, dice1 = dice1, dice2 = dice2, dice3 = dice3):
+        walk = self.calcWalk(self.dataPoints-1)
         plt.plot(walk)
         plt.show()
         return walk
