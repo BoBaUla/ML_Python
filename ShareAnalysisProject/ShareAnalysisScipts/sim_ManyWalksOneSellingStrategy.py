@@ -20,8 +20,8 @@ def Run(config, simulations, evaluationStrategy, save = False):
         preparedData = preEvaluateData(data, evaluationStrategy, config.steps)
         res = performStrategy(config, preparedData)
         gainArray.append(res[0])
-        evaRes = dat.EvaluationResult(data, res, config, evaluationStrategy.__name__)
         if save:
+            evaRes = dat.EvaluationResult(data, res, config, evaluationStrategy.__name__)
             evaRes.Save()
 
     avg = np.mean(gainArray)

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt # plotten von daten
 import numpy as np 
 import ShareAnalysisScipts.generator_randomwalk as rw 
 
-from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.config_Type import TradeConfig
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 import ShareAnalysisScipts.eva_PreEvaluationStrategies  as pes
 from ShareAnalysisScipts.eva_Performer import performStrategy

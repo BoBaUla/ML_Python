@@ -4,15 +4,16 @@ import ShareAnalysisScipts.helper_Math as mh
 import ShareAnalysisScipts.helper_Weights as wh 
 import ShareAnalysisScipts.generator_randomwalk as rw 
 import ShareAnalysisScipts.plot_ScriptCollection as pc 
+import ShareAnalysisScipts.eva_Data_Types as dat
 
-from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.config_Type import TradeConfig
 from ShareAnalysisScipts.eva_Performer import performStrategy
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 from ShareAnalysisScipts.eva_Data_Mapper import StrategyMapper
 from ShareAnalysisScipts.eva_Script import initLimitStrategies, filterBadStrategies, filterGoodStrategies
 from ShareAnalysisScipts.eva_Data_Types import StratResult
 
-def Run(config, evaluationStrategy):
+def Run(config, evaluationStrategy, save = False):
     gainArray = []
     result = []
             
@@ -27,10 +28,15 @@ def Run(config, evaluationStrategy):
         config.stopLossFactor = stopLossFactor/100
         config.sellAtFactor = sellAtFactor/100
         preparedData = preEvaluateData(data, evaluationStrategy, config.steps)
-        gain = performStrategy(config, preparedData)[0]
+        res = performStrategy(config, preparedData)
+        gain = res[0]
         print(i, config.stopLossFactor, config.sellAtFactor, gain, sep = '\t')
         gainArray.append(gain)
         result.append(StratResult(gain, gain, i))
+        if save:
+            evaRes = dat.EvaluationResult(data, res, config, evaluationStrategy.__name__)
+            evaRes.Save()
+
 
     goodStrategies = filterGoodStrategies(result, config.invest)
     badStrategies = filterBadStrategies(result, config.invest)
