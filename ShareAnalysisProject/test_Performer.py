@@ -46,7 +46,6 @@ class TestBuyShare(object):
 class TestPerformStrategy(object):
     
     def test_PerformOneBuyAction_PerformNoSellAction(self):
-        config.maxGainFactor = 10
         evaluatedData = [
             EvaluatedData([1,2,3,4],True,2), 
             EvaluatedData([1,2,3,4],True,2)]
@@ -55,7 +54,6 @@ class TestPerformStrategy(object):
         assert len(sellAction) == 0
     
     def test_PerformOneBuyAction_PerformOneSellAction(self):
-        config.maxGainFactor = 1
         evaluatedData = [
             EvaluatedData([1,2,3,4],True,2), 
             EvaluatedData([2,3,4,2],False,10), 
@@ -64,38 +62,24 @@ class TestPerformStrategy(object):
         gain, buyAction, sellAction = performer.performStrategy(config, evaluatedData, sellStrategy = sellMockTrue)
         assert len(buyAction) == 1
         assert len(sellAction) == 1
-
-    def test_PerformOneBuyAction_PerformOneSellAction_AndMaxGainHits(self):
-        config.maxGainFactor = 10
-        evaluatedData = [
-            EvaluatedData([1,2,3,4],True,2), 
-            EvaluatedData([2,3,4,2],False,100), 
-            EvaluatedData([2,3,4,2],True,1), 
-            EvaluatedData([2,3,4,2],False,1),
-            EvaluatedData([2,3,4,2],False,1),
-            EvaluatedData([2,3,4,2],True,1)]
-        gain, buyAction, sellAction = performer.performStrategy(config, evaluatedData, sellStrategy = sellMockTrue)
-        assert gain >= config.invest * (1+config.maxGainFactor)
-        assert len(buyAction) == 1
-        assert len(sellAction) == 1
     
     def test_PerformOneBuyAction_PerformOneSellAction_IndicesAreSetCorrectly(self):
-        config.maxGainFactor = 10
+        buyAtIndex = 6
+        sellAtIndex = buyAtIndex + 1
         evaluatedData = [
-            EvaluatedData([1,2,3,4],True,2), 
-            EvaluatedData([2,3,4,2],False,100), 
+            EvaluatedData([1,2,3,4],False,2), 
+            EvaluatedData([2,3,4,2],False,2), 
             EvaluatedData([2,3,4,2],True,1), 
-            EvaluatedData([2,3,4,2],False,1),
-            EvaluatedData([2,3,4,2],False,1),
-            EvaluatedData([2,3,4,2],True,1)]
+            EvaluatedData([2,3,4,2],False,2),
+            EvaluatedData([2,3,4,2],False,2),
+            EvaluatedData([2,3,4,2],False,2)]
         gain, buyAction, sellAction = performer.performStrategy(config, evaluatedData, sellStrategy = sellMockTrue)
         assert len(buyAction) == 1
-        assert buyAction[0][0] == len(evaluatedData[0].subset)
+        assert buyAction[0][0] == buyAtIndex
         assert len(sellAction) == 1
-        assert sellAction[0][0] == len(evaluatedData[0].subset) + 1
+        assert sellAction[0][0] == sellAtIndex
       
     def test_PerformMoreBuyAction_PerformMoreSellAction(self):
-        config.maxGainFactor = 100
         evaluatedData = [
             EvaluatedData([1,2,3,4],True,2), 
             EvaluatedData([2,3,4,2],False,4), 
@@ -107,7 +91,6 @@ class TestPerformStrategy(object):
         assert len(sellAction) == 2
     
     def test_PerformNoBuyAction_IfPriceIs0(self):
-        config.maxGainFactor = 100
         evaluatedData = [
             EvaluatedData([1,2,3,4],True,0), 
             EvaluatedData([2,3,4,2],False,0), 
@@ -119,7 +102,6 @@ class TestPerformStrategy(object):
         assert len(sellAction) == 0
     
     def test_PerformNoBuyAction_IfPriceIs0_ButElse(self):
-        config.maxGainFactor = 100
         evaluatedData = [
             EvaluatedData([1,2,3,4],True,1), 
             EvaluatedData([2,3,4,2],False,2), 
@@ -131,7 +113,6 @@ class TestPerformStrategy(object):
         assert len(sellAction) == 2
 
     def test_ReturnsGainCorrect_NoShareLeft(self):
-        config.maxGainFactor = 100
         evaluatedData = [ # fee = 2
             EvaluatedData([2,3,4,2],True,1), # kaufe 8 für 1 => m = 0 s = 8
             EvaluatedData([2,3,4,2],False,2), # verkaufe 8 für 2 => m = 16 - 2 = 14 s = 0
@@ -144,7 +125,6 @@ class TestPerformStrategy(object):
         assert len(sellAction) == 2
     
     def test_ReturnsGainCorrect_SomeShareLeft(self):
-        config.maxGainFactor = 100
         evaluatedData = [ # fee = 2
             EvaluatedData([2,3,4,2],True,1), # kaufe 8 für 1 => m = 0 s = 8
             EvaluatedData([2,3,4,2],False,2), # verkaufe 8 für 2 => m = 16 - 2 = 14 s = 0

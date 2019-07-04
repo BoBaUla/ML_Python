@@ -2,7 +2,7 @@ from ShareAnalysisScipts.eva_Data_Mapper import *
 from ShareAnalysisScipts.eva_Data_Types import EvaluatedData
 from ShareAnalysisScipts.eva_Script import *
 from ShareAnalysisScipts.generator_randomwalk import RandomWalker as rw
-from ShareAnalysisScipts.config_Type import TradeConfig
+from ShareAnalysisScipts.config_Type import TradeConfig, WalkerConfig
 import pytest
 
 # pytest test_evaluateStrategy.py
@@ -91,6 +91,7 @@ class TestFilterStrategies(object):
 class TestEvaluateStrategy(object):
     simulations = 1
     start = 10
+    walker = rw(WalkerConfig())
 
     def preEvaluateDataMock(self,data, steps):
         return data
@@ -101,7 +102,7 @@ class TestEvaluateStrategy(object):
     def test_EvaluateStrategy_ReturnsNothingAtEmptyStrategy(self):
         strategies = []
         
-        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), self.start, 
+        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), rw, self.start, 
         preEvaluation = self.preEvaluateDataMock,
         performer = self.evaluateDataMock)
         assert len(strategies) == len(result)
@@ -109,7 +110,7 @@ class TestEvaluateStrategy(object):
     def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategy(self):
         strategies = [11]
 
-        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), self.start, 
+        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), rw, self.start, 
         preEvaluation = self.preEvaluateDataMock,
         performer = self.evaluateDataMock)
         
@@ -119,7 +120,7 @@ class TestEvaluateStrategy(object):
     def test_EvaluateStrategy_ReturnsAtNoneEmptyStrategyMoreResults(self):
         strategies = [11,122,21]
 
-        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), self.start, 
+        result = EvaluateStrategy(strategies, self.simulations, TradeConfig(maxStrategyRange=1), rw, self.start, 
         preEvaluation = self.preEvaluateDataMock,
         performer = self.evaluateDataMock)
 
