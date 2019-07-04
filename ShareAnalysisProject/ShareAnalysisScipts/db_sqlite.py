@@ -5,22 +5,19 @@ import os
 table_datensatz_name = 'Datensatz'
 fields_datensatz = [
     'id integer PRIMARY KEY autoincrement,', 
-    'config_id integer,',
-    'Werte text,',    
-    'FOREIGN KEY (config_id) REFERENCES Konfiguration (id)']
+    'mu decimal,',
+    'sigma decimal',
+    'Werte text,']
+    
 
 table_configuration_name = 'Konfiguration'
 fields_configuration = [
     'id integer PRIMARY KEY autoincrement,'
     'config_id text,', 
-    'Datenpunkte integer,',
     'Guthaben integer,',
     'Transaktionsgebuehr integer,',
     'Schrittlaenge integer,', 
     'Strategienlimit integer,',
-    'Kursstart integer,',
-    'mu_rendite double,',
-    'sigma_rendite double,',
     'StoppLoss double,',
     'SellAt double']
 
@@ -105,17 +102,13 @@ def insert_config(config):
         if len(rows) == 0:
             statement = 'insert into  ' + table_configuration_name +'''(
                 config_id, 
-                Datenpunkte, 
                 Guthaben, 
                 Transaktionsgebuehr, 
                 Schrittlaenge, 
                 Strategienlimit,
-                Kursstart,
-                mu_rendite,
-                sigma_rendite,
                 StoppLoss,
                 SellAt) 
-            values (?,?,?,?,?,?,?,?,?,?,?);
+            values (?,?,?,?,?,?,?);
             '''
             values = config.GetValues()
             cur.execute(statement, values)
@@ -148,12 +141,12 @@ def insert_method(name):
             id = rows[0][0]
     return id
 
-def insert_data(data, config_id):
+def insert_data(data, config):
     conn = create_connection(location())
     id = 0
     with conn:
         cur = conn.cursor()
-        cur.execute('insert into ' + table_datensatz_name +'(config_id, Werte) values (?, ?);', (config_id, data))
+        cur.execute('insert into ' + table_datensatz_name +'(mu, sigma, Werte) values (?, ?, ?);', (config.mu, config.sigma, data))
         id = cur.lastrowid
     return id
 
@@ -162,6 +155,6 @@ def insert_cross(method_id, data_id, result_id):
     id = 0
     with conn:
         cur = conn.cursor()
-        cur.execute('insert into ' + table_cross_name +'(data_id, result_id, method_id) values (?,?,?);', (method_id, data_id, result_id))
+        cur.execute('insert into ' + table_cross_name +'(method_id, data_id, result_id) values (?,?,?);', (method_id, data_id, result_id))
         id = cur.lastrowid
     return id
