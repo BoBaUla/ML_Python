@@ -3,7 +3,7 @@ import numpy as np
 import ShareAnalysisScipts.generator_randomwalk as rw 
 
 from ShareAnalysisScipts.eva_Data_Types import EvaluationResult
-from ShareAnalysisScipts.config_Type import SimConfig
+from ShareAnalysisScipts.config_Type import TradeConfig
 from ShareAnalysisScipts.eva_PreEvaluation_Script import preEvaluateData
 from ShareAnalysisScipts.eva_Performer import performStrategy
 from ShareAnalysisScipts.plot_ScriptCollection import plotResults, plotData
@@ -18,6 +18,9 @@ def stdBordersForData(data, steps):
     upperStd = []
     lowerStd = []
     
+    if len(mem.meanMemory) == 0:
+        return [0], [0], [0]
+
     for i in range(len(data)-steps):
         meanData.append(mem.meanMemory[i])
         upperStd.append(mem.meanMemory[i] + mem.stdMemory[i])
@@ -49,13 +52,14 @@ def Run(config, evaluationStrategies, save = False):
         meanData, upperSigma, lowerSigma = stdBordersForData(data, config.steps)      
 
         plotResults(axs[i],evaluationStrategies[i].__name__ , data, localResults)
-        plotData(axs[i], data, description = 'mu', subdata = [range(len(data)-1),meanData], subdataColor='r--')
-        plotData(axs[i], data, description = 'mu + sigma', subdata = [range(len(data)-1),upperSigma], subdataColor='y-')
-        plotData(axs[i], data, description = 'mu - sigma', subdata = [range(len(data)-1),lowerSigma], subdataColor='y-')
-        mem.resetAll()
+        if len(meanData) > 1:
+            plotData(axs[i], data, description = 'mu', subdata = [range(len(data)-1),meanData], subdataColor='r--')
+            plotData(axs[i], data, description = 'mu + sigma', subdata = [range(len(data)-1),upperSigma], subdataColor='y-')
+            plotData(axs[i], data, description = 'mu - sigma', subdata = [range(len(data)-1),lowerSigma], subdataColor='y-')
+            mem.resetAll()
 
-        evaRes = EvaluationResult(data, localResults, config, evaluationStrategies[i].__name__)
         if save:
+            evaRes = EvaluationResult(data, localResults, config, evaluationStrategies[i].__name__)
             evaRes.Save()
         
     plt.show()
